@@ -1,106 +1,116 @@
 import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 import { useNavigate, Link } from "react-router-dom";
-import toast from "react-hot-toast";
 
-import API from "../services/api";
-
-const Login = () => {
-
+export default function Login() {
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleChange = (e) => {
-
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-
-  };
-
-  const handleSubmit = async (e) => {
-
+  const loginUser = async (e) => {
     e.preventDefault();
 
     try {
+      setLoading(true);
+      setError("");
 
-      const { data } = await API.post(
-        "/auth/login",
-        formData
-      );
-
-      toast.success("Login successful");
-
-      localStorage.setItem(
-        "fabricaiUser",
-        JSON.stringify(data.user)
-      );
-
-      localStorage.setItem(
-        "fabricaiToken",
-        data.token
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
       );
 
       navigate("/dashboard");
-
-    } catch (error) {
-
-      toast.error(
-        error.response?.data?.message ||
-        "Login failed"
-      );
-
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-
   };
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center">
-
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "#000",
+        color: "#fff",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <form
-        onSubmit={handleSubmit}
-        className="bg-zinc-900 p-10 rounded-2xl w-[400px] flex flex-col gap-5"
+        onSubmit={loginUser}
+        style={{
+          width: "400px",
+          background: "#111",
+          padding: "30px",
+          borderRadius: "12px",
+        }}
       >
+        <h1>Login</h1>
 
-        <h1 className="text-4xl text-white font-bold">
-          Login
-        </h1>
+        {error && (
+          <p style={{ color: "red" }}>
+            {error}
+          </p>
+        )}
 
         <input
           type="email"
-          name="email"
           placeholder="Email"
-          onChange={handleChange}
-          className="bg-black text-white p-4 rounded-xl outline-none"
+          value={email}
+          onChange={(e) =>
+            setEmail(e.target.value)
+          }
+          style={{
+            width: "100%",
+            padding: "12px",
+            marginTop: "15px",
+          }}
         />
 
         <input
           type="password"
-          name="password"
           placeholder="Password"
-          onChange={handleChange}
-          className="bg-black text-white p-4 rounded-xl outline-none"
+          value={password}
+          onChange={(e) =>
+            setPassword(e.target.value)
+          }
+          style={{
+            width: "100%",
+            padding: "12px",
+            marginTop: "15px",
+          }}
         />
 
-        <button className="bg-white text-black p-4 rounded-xl font-bold">
-          Login
+        <button
+          type="submit"
+          disabled={loading}
+          style={{
+            width: "100%",
+            padding: "12px",
+            marginTop: "20px",
+            background: "#2563eb",
+            color: "#fff",
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
+          {loading ? "Signing in..." : "Login"}
         </button>
 
-        <Link
-          to="/register"
-          className="text-zinc-400 text-center"
-        >
-          Create account
-        </Link>
-
+        <p style={{ marginTop: "20px" }}>
+          No account?{" "}
+          <Link to="/register">
+            Register
+          </Link>
+        </p>
       </form>
-
     </div>
   );
-};
-
-export default Login;
+}

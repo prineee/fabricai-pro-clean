@@ -1,87 +1,51 @@
 import {
-  BrowserRouter,
   Routes,
   Route,
-  Link,
+  Navigate,
 } from "react-router-dom";
 
-import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-import Billing from "./pages/Billing";
 import AIChat from "./pages/AIChat";
-import Analytics from "./pages/Analytics";
-import Admin from "./pages/Admin";
 
-function App() {
+import ProtectedRoute from "./components/ProtectedRoute";
+
+export default function App() {
   return (
-    <BrowserRouter>
-      <div className="min-h-screen bg-black text-white">
-        <nav className="flex gap-6 p-6 bg-zinc-900">
-          <Link to="/">Home</Link>
+    <Routes>
+      <Route
+        path="/"
+        element={<Navigate to="/dashboard" />}
+      />
 
-          <Link to="/dashboard">
-            Dashboard
-          </Link>
+      <Route
+        path="/login"
+        element={<Login />}
+      />
 
-          <Link to="/billing">
-            Billing
-          </Link>
+      <Route
+        path="/register"
+        element={<Register />}
+      />
 
-          <Link to="/ai">AI</Link>
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
 
-          <Link to="/analytics">
-            Analytics
-          </Link>
-
-          <Link to="/login">Login</Link>
-
-          <Link to="/register">
-            Register
-          </Link>
-        </nav>
-
-        <Routes>
-          <Route
-            path="/"
-            element={<Home />}
-          />
-
-          <Route
-            path="/login"
-            element={<Login />}
-          />
-
-          <Route
-            path="/register"
-            element={<Register />}
-          />
-
-          <Route
-            path="/dashboard"
-            element={<Dashboard />}
-          />
-
-          <Route
-            path="/billing"
-            element={<Billing />}
-          />
-
-          <Route
-            path="/ai"
-            element={<AIChat />}
-          />
-          <Route path="/admin" element={<Admin />} />
-
-          <Route
-            path="/analytics"
-            element={<Analytics />}
-          />
-        </Routes>
-      </div>
-    </BrowserRouter>
+      <Route
+        path="/ai"
+        element={
+          <ProtectedRoute>
+            <AIChat />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
   );
 }
-
-export default App;
