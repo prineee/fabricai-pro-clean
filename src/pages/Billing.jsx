@@ -1,50 +1,23 @@
+import React from "react";
 import axios from "axios";
 
-export default function Billing() {
+function Billing() {
 
-  const startPayment = async () => {
-
+  const createOrder = async () => {
     try {
 
-      const { data } = await axios.post(
+      const response = await axios.post(
         "https://fabricai-backend.onrender.com/api/payment/create-order"
       );
 
-      const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-
-        amount: data.amount,
-        currency: data.currency,
-        name: "FabricAI Pro",
-        description: "Premium AI Subscription",
-        order_id: data.id,
-
-        handler: function (response) {
-
-          alert("Payment Successful");
-
-          console.log(response);
-        },
-
-        prefill: {
-          name: "Customer",
-          email: "customer@example.com",
-        },
-
-        theme: {
-          color: "#2563eb",
-        },
-      };
-
-      const razor = new window.Razorpay(options);
-
-      razor.open();
+      if (response.data.success) {
+        alert("Order Created Successfully");
+      }
 
     } catch (error) {
 
-      console.log(error);
+      alert("Backend Payment Error");
 
-      alert("Payment Failed");
     }
   };
 
@@ -52,61 +25,35 @@ export default function Billing() {
     <div
       style={{
         minHeight: "100vh",
-        background: "black",
+        background: "#020617",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        color: "white",
+        fontFamily: "Arial",
       }}
     >
       <div
         style={{
-          width: "450px",
+          background: "#111827",
           padding: "50px",
-          background: "#111",
           borderRadius: "20px",
+          width: "400px",
           textAlign: "center",
-          border: "1px solid #222",
         }}
       >
-        <h1
-          style={{
-            color: "white",
-            fontSize: "42px",
-          }}
-        >
-          Upgrade To Pro
-        </h1>
-
-        <h2
-          style={{
-            color: "#2563eb",
-            fontSize: "60px",
-          }}
-        >
-          ₹499
-        </h2>
-
-        <p
-          style={{
-            color: "#aaa",
-            lineHeight: "1.7",
-            marginBottom: "30px",
-          }}
-        >
-          Unlock premium AI features, advanced dashboard access,
-          business automation tools and commercial license.
-        </p>
+        <h1>Billing Page</h1>
 
         <button
-          onClick={startPayment}
+          onClick={createOrder}
           style={{
-            width: "100%",
-            padding: "18px",
+            marginTop: "30px",
             background: "#2563eb",
             border: "none",
+            padding: "16px 30px",
             borderRadius: "12px",
             color: "white",
-            fontSize: "22px",
+            fontSize: "20px",
             cursor: "pointer",
           }}
         >
@@ -116,3 +63,5 @@ export default function Billing() {
     </div>
   );
 }
+
+export default Billing;
