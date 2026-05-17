@@ -1,0 +1,73 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: white;
+}
+
+.landing {
+  min-height: 100vh;
+  background: #000;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  background: #111;
+  border-bottom: 1px solid #222;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+}
+
+.hero {
+  text-align: center;
+  padding: 120px 20px;
+}
+
+.hero h1 {
+  font-size: 60px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.hero p {
+  color: #bbb;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.hero-buttons {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.primary-btn,
+.secondary-btn,
+.buy-btn {
+  padding: 16px 30px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.primary-btn,
+.buy-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.secondary-btn {
+  border: 1px solid #444;
+}

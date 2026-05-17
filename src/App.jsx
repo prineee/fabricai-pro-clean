@@ -1,51 +1,32 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Link,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import LandingPage from "./pages/LandingPage";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
 import Billing from "./pages/Billing";
 
-function Home() {
-  return (
-    <div
-      style={{
-        background: "#000",
-        color: "#fff",
-        minHeight: "100vh",
-        padding: "40px",
-      }}
-    >
-      <h1>FabricAI Pro</h1>
-
-      <Link
-        to="/billing"
-        style={{
-          color: "#2563eb",
-          fontSize: "24px",
-        }}
-      >
-        Go To Billing
-      </Link>
-    </div>
-  );
-}
-
-export default function App() {
+function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/"
-          element={<Home />}
-        />
 
-        <Route
-          path="/billing"
-          element={<Billing />}
-        />
+        {/* Landing Page */}
+        <Route path="/" element={<LandingPage />} />
+
+        {/* Auth */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        {/* Dashboard */}
+        <Route path="/dashboard" element={<Dashboard />} />
+
+        {/* Billing */}
+        <Route path="/billing" element={<Billing />} />
+
       </Routes>
     </BrowserRouter>
   );
 }
+
+export default App;
