@@ -10,6 +10,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const PORT = process.env.PORT || 10000;
+
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 app.get("/", (req, res) => {
@@ -27,26 +29,27 @@ app.post("/api/ai/chat", async (req, res) => {
     }
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: "gemini-2.0-flash",
     });
 
     const result = await model.generateContent(message);
 
-    const response = result.response.text();
+    const response = await result.response;
+
+    const text = response.text();
 
     res.json({
-      reply: response,
+      reply: text,
     });
+
   } catch (error) {
-    console.log(error);
+    console.error("Gemini Error:", error);
 
     res.status(500).json({
       reply: "AI request failed",
     });
   }
 });
-
-const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
