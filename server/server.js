@@ -4,10 +4,13 @@ import dotenv from "dotenv";
 import Razorpay from "razorpay";
 import crypto from "crypto";
 import { Groq } from "groq-sdk";
+import paymentRoutes from "./routes/payment.js";
 
 dotenv.config();
 
 const app = express();
+app.use(express.json());
+app.use("/api/payment", paymentRoutes);
 
 app.use(cors());
 app.use(express.json());
