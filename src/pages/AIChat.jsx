@@ -6,7 +6,7 @@ export default function AIChat() {
   const [chat, setChat] = useState([]);
 
   const sendMessage = async () => {
-    if (!message) return;
+    if (!message.trim()) return;
 
     const userMessage = {
       sender: "user",
@@ -16,7 +16,7 @@ export default function AIChat() {
     setChat((prev) => [...prev, userMessage]);
 
     try {
-      const res = await axios.post(
+      const response = await axios.post(
         "https://fabricai-backend.onrender.com/api/ai/chat",
         {
           message,
@@ -25,7 +25,7 @@ export default function AIChat() {
 
       const aiMessage = {
         sender: "ai",
-        text: res.data.reply,
+        text: response.data.reply,
       };
 
       setChat((prev) => [...prev, aiMessage]);
@@ -46,19 +46,19 @@ export default function AIChat() {
 
   return (
     <div className="min-h-screen bg-black text-white p-8">
-      <h1 className="text-6xl font-bold mb-10">
+      <h1 className="text-6xl font-bold mb-8">
         FabricAI Chat Assistant
       </h1>
 
       <div className="bg-zinc-900 rounded-3xl p-8 h-[600px] overflow-y-auto">
-        <div className="space-y-6">
+        <div className="space-y-4">
           {chat.map((msg, index) => (
             <div
               key={index}
-              className={`p-6 rounded-3xl text-3xl ${
+              className={`p-6 rounded-3xl text-2xl ${
                 msg.sender === "user"
-                  ? "bg-blue-600 text-white ml-20"
-                  : "bg-zinc-700 text-white mr-20"
+                  ? "bg-blue-600 ml-24"
+                  : "bg-zinc-700 mr-24"
               }`}
             >
               {msg.text}
@@ -70,15 +70,15 @@ export default function AIChat() {
       <div className="flex gap-4 mt-8">
         <input
           type="text"
+          placeholder="Ask AI..."
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="Ask AI anything..."
-          className="flex-1 bg-zinc-800 text-white p-6 rounded-3xl text-3xl outline-none"
+          className="flex-1 bg-zinc-800 p-6 rounded-3xl text-2xl outline-none"
         />
 
         <button
           onClick={sendMessage}
-          className="bg-blue-600 hover:bg-blue-700 px-10 rounded-3xl text-3xl font-bold"
+          className="bg-blue-600 hover:bg-blue-700 px-10 rounded-3xl text-2xl font-bold"
         >
           Send
         </button>
