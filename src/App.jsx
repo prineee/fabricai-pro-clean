@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Billing from "./pages/Billing";
+import Pricing from "./pages/Pricing";
 
 function App() {
   return (
@@ -13,6 +14,8 @@ function App() {
 
         {/* Landing Page */}
         <Route path="/" element={<LandingPage />} />
+
+       <Route path="/pricing" element={<Pricing />} />
 
         {/* Auth */}
         <Route path="/login" element={<Login />} />
