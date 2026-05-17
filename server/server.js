@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import Groq from "groq-sdk";
 
 dotenv.config();
 
@@ -12,10 +12,12 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 10000;
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
+});
 
 app.get("/", (req, res) => {
-  res.send("FabricAI Backend Running");
+  res.send("FabricAI Groq Backend Running");
 });
 
 app.post("/api/ai/chat", async (req, res) => {
@@ -28,22 +30,33 @@ app.post("/api/ai/chat", async (req, res) => {
       });
     }
 
-    const model = genAI.getGenerativeModel({
-      model: "gemini-2.0-flash",
+    const chatCompletion = await groq.chat.completions.create({
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are FabricAI, a professional AI business assistant.",
+        },
+        {
+          role: "user",
+          content: message,
+        },
+      ],
+      model: "llama-3.3-70b-versatile",
+      temperature: 0.7,
+      max_tokens: 1024,
     });
 
-    const result = await model.generateContent(message);
-
-    const response = await result.response;
-
-    const text = response.text();
+    const reply =
+      chatCompletion.choices[0]?.message?.content ||
+      "No response generated";
 
     res.json({
-      reply: text,
+      reply,
     });
 
   } catch (error) {
-    console.error("Gemini Error:", error);
+    console.error("Groq Error:", error);
 
     res.status(500).json({
       reply: "AI request failed",
