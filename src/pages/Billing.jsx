@@ -2,68 +2,27 @@ import axios from "axios";
 
 export default function Billing() {
 
-  const loadRazorpay = () => {
-    return new Promise((resolve) => {
-      const script = document.createElement("script");
-      script.src = "https://checkout.razorpay.com/v1/checkout.js";
-
-      script.onload = () => {
-        resolve(true);
-      };
-
-      script.onerror = () => {
-        resolve(false);
-      };
-
-      document.body.appendChild(script);
-    });
-  };
-
-  const startPayment = async (plan, amount) => {
-
-    const loaded = await loadRazorpay();
-
-    if (!loaded) {
-      alert("Razorpay SDK Failed");
-      return;
-    }
+  const startPayment = async (amount) => {
 
     try {
 
       const response = await axios.post(
-        "https://fabricai-backend.onrender.com/api/payment/create-order",
-        {
-          amount,
-          plan,
-        }
+        "https://fabricai-backend.onrender.com/api/payment/create-order"
       );
 
-      const order = response.data.order;
+      console.log(response.data);
 
       const options = {
         key: "rzp_live_SngV5d3BGmZJ1p",
-
-        amount: order.amount,
-
-        currency: order.currency,
-
+        amount: response.data.amount,
+        currency: response.data.currency,
         name: "FabricAI Pro",
+        description: "AI Subscription",
+        order_id: response.data.id,
 
-        description: `${plan} Subscription`,
-
-        order_id: order.id,
-
-        handler: async function (response) {
-
+        handler: function (response) {
           alert("Payment Successful");
-
           console.log(response);
-
-        },
-
-        prefill: {
-          name: "Customer",
-          email: "customer@email.com",
         },
 
         theme: {
@@ -71,16 +30,15 @@ export default function Billing() {
         },
       };
 
-      const paymentObject = new window.Razorpay(options);
+      const razor = new window.Razorpay(options);
 
-      paymentObject.open();
+      razor.open();
 
     } catch (error) {
 
       console.log(error);
 
       alert("Backend Payment Error");
-
     }
   };
 
@@ -91,145 +49,135 @@ export default function Billing() {
         background: "#020617",
         color: "white",
         display: "flex",
+        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        padding: "40px",
+        gap: "40px",
       }}
     >
-      <div
+      <h1
         style={{
-          width: "100%",
-          maxWidth: "1100px",
+          fontSize: "60px",
+          fontWeight: "bold",
         }}
       >
-        <h1
-          style={{
-            textAlign: "center",
-            fontSize: "52px",
-            marginBottom: "20px",
-            fontWeight: "bold",
-          }}
-        >
-          Choose Your Plan
-        </h1>
+        Choose Your Plan
+      </h1>
 
-        <p
-          style={{
-            textAlign: "center",
-            color: "#94a3b8",
-            marginBottom: "60px",
-            fontSize: "20px",
-          }}
-        >
-          Unlock premium AI tools for your business
-        </p>
+      <p
+        style={{
+          color: "#cbd5e1",
+          fontSize: "24px",
+        }}
+      >
+        Unlock premium AI tools for your business
+      </p>
 
+      <div
+        style={{
+          display: "flex",
+          gap: "30px",
+          flexWrap: "wrap",
+          justifyContent: "center",
+        }}
+      >
+
+        {/* STARTER */}
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))",
-            gap: "30px",
+            width: "320px",
+            background: "#0f172a",
+            padding: "40px",
+            borderRadius: "20px",
+            textAlign: "center",
           }}
         >
+          <h2>Starter</h2>
 
-          <div
+          <h1 style={{ fontSize: "70px" }}>₹499</h1>
+
+          <button
+            onClick={() => startPayment(499)}
             style={{
-              background: "#0f172a",
-              padding: "40px",
-              borderRadius: "24px",
-              textAlign: "center",
-            }}
-          >
-            <h2>Starter</h2>
-
-            <h1 style={{ fontSize: "56px" }}>
-              ₹499
-            </h1>
-
-            <button
-              onClick={() => startPayment("Starter", 499)}
-              style={{
-                marginTop: "30px",
-                width: "100%",
-                padding: "16px",
-                borderRadius: "12px",
-                border: "none",
-                background: "#2563eb",
-                color: "white",
-                fontSize: "18px",
-                cursor: "pointer",
-              }}
-            >
-              Get Starter
-            </button>
-          </div>
-
-          <div
-            style={{
+              marginTop: "20px",
+              width: "100%",
+              padding: "18px",
+              border: "none",
+              borderRadius: "12px",
               background: "#2563eb",
-              padding: "40px",
-              borderRadius: "24px",
-              textAlign: "center",
+              color: "white",
+              fontSize: "24px",
+              cursor: "pointer",
             }}
           >
-            <h2>Pro</h2>
-
-            <h1 style={{ fontSize: "56px" }}>
-              ₹1499
-            </h1>
-
-            <button
-              onClick={() => startPayment("Pro", 1499)}
-              style={{
-                marginTop: "30px",
-                width: "100%",
-                padding: "16px",
-                borderRadius: "12px",
-                border: "none",
-                background: "white",
-                color: "#2563eb",
-                fontSize: "18px",
-                fontWeight: "bold",
-                cursor: "pointer",
-              }}
-            >
-              Upgrade To Pro
-            </button>
-          </div>
-
-          <div
-            style={{
-              background: "#0f172a",
-              padding: "40px",
-              borderRadius: "24px",
-              textAlign: "center",
-            }}
-          >
-            <h2>Agency</h2>
-
-            <h1 style={{ fontSize: "56px" }}>
-              ₹4999
-            </h1>
-
-            <button
-              onClick={() => startPayment("Agency", 4999)}
-              style={{
-                marginTop: "30px",
-                width: "100%",
-                padding: "16px",
-                borderRadius: "12px",
-                border: "none",
-                background: "#2563eb",
-                color: "white",
-                fontSize: "18px",
-                cursor: "pointer",
-              }}
-            >
-              Get Agency
-            </button>
-          </div>
-
+            Get Starter
+          </button>
         </div>
+
+        {/* PRO */}
+        <div
+          style={{
+            width: "320px",
+            background: "#2563eb",
+            padding: "40px",
+            borderRadius: "20px",
+            textAlign: "center",
+          }}
+        >
+          <h2>Pro</h2>
+
+          <h1 style={{ fontSize: "70px" }}>₹1499</h1>
+
+          <button
+            onClick={() => startPayment(1499)}
+            style={{
+              marginTop: "20px",
+              width: "100%",
+              padding: "18px",
+              border: "none",
+              borderRadius: "12px",
+              background: "white",
+              color: "#2563eb",
+              fontSize: "24px",
+              cursor: "pointer",
+            }}
+          >
+            Upgrade To Pro
+          </button>
+        </div>
+
+        {/* AGENCY */}
+        <div
+          style={{
+            width: "320px",
+            background: "#0f172a",
+            padding: "40px",
+            borderRadius: "20px",
+            textAlign: "center",
+          }}
+        >
+          <h2>Agency</h2>
+
+          <h1 style={{ fontSize: "70px" }}>₹4999</h1>
+
+          <button
+            onClick={() => startPayment(4999)}
+            style={{
+              marginTop: "20px",
+              width: "100%",
+              padding: "18px",
+              border: "none",
+              borderRadius: "12px",
+              background: "#2563eb",
+              color: "white",
+              fontSize: "24px",
+              cursor: "pointer",
+            }}
+          >
+            Get Agency
+          </button>
+        </div>
+
       </div>
     </div>
   );
