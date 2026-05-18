@@ -1,37 +1,51 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 import LandingPage from "./pages/LandingPage";
+import Billing from "./pages/Billing";
+import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import Billing from "./pages/Billing";
-import Pricing from "./pages/Pricing";
-import AIChat from "./pages/AIChat";
 
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
       <Routes>
 
-        {/* Landing Page */}
-        <Route path="/" element={<LandingPage />} />
+        {/* LANDING PAGE */}
+        <Route
+          path="/"
+          element={<LandingPage />}
+        />
 
-       <Route path="/pricing" element={<Pricing />} />
-       <Route path="/ai-chat" element={<AIChat />} />
+        {/* BILLING PAGE */}
+        <Route
+          path="/billing"
+          element={<Billing />}
+        />
 
-        {/* Auth */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        {/* DASHBOARD */}
+        <Route
+          path="/dashboard"
+          element={<Dashboard />}
+        />
 
-        {/* Dashboard */}
-        <Route path="/dashboard" element={<Dashboard />} />
+        {/* LOGIN */}
+        <Route
+          path="/login"
+          element={<Login />}
+        />
 
-        {/* Billing */}
-        <Route path="/billing" element={<Billing />} />
+        {/* REGISTER */}
+        <Route
+          path="/register"
+          element={<Register />}
+        />
 
       </Routes>
     </BrowserRouter>
   );
 }
-
-export default App;
