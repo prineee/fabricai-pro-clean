@@ -272,6 +272,27 @@ export default function FabricAILandingPage() {
       {/* FOOTER */}
       <footer className="border-t border-gray-800 py-10 text-center text-gray-500">
         © 2026 FabricAI Pro. All rights reserved.
+      <div
+  style={{
+    display: 'flex',
+    gap: '20px',
+    justifyContent: 'center',
+    marginTop: '40px',
+  }}
+>
+  <a href="/privacy-policy" style={{ color: 'white' }}>
+    Privacy Policy
+  </a>
+
+  <a href="/terms" style={{ color: 'white' }}>
+    Terms
+  </a>
+
+  <a href="/refund-policy" style={{ color: 'white' }}>
+    Refund Policy
+  </a>
+</div>
+      
       </footer>
     </div>
   );

@@ -1,4 +1,7 @@
-import {
+
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import Terms from './pages/Terms';
+import RefundPolicy from './pages/RefundPolicy';import {
   BrowserRouter,
   Routes,
   Route,
@@ -44,6 +47,9 @@ export default function App() {
           path="/register"
           element={<Register />}
         />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+<Route path="/terms" element={<Terms />} />
+<Route path="/refund-policy" element={<RefundPolicy />} />
 
       </Routes>
     </BrowserRouter>
