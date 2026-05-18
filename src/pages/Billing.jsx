@@ -2,7 +2,32 @@ import axios from "axios";
 
 export default function Billing() {
 
+  const loadRazorpay = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+
+      script.onload = () => {
+        resolve(true);
+      };
+
+      script.onerror = () => {
+        resolve(false);
+      };
+
+      document.body.appendChild(script);
+    });
+  };
+
   const startPayment = async (plan, amount) => {
+
+    const loaded = await loadRazorpay();
+
+    if (!loaded) {
+      alert("Razorpay SDK Failed");
+      return;
+    }
+
     try {
 
       const response = await axios.post(
@@ -13,15 +38,49 @@ export default function Billing() {
         }
       );
 
-      if (response.data.success) {
-        alert(plan + " Plan Activated Successfully");
-      } else {
-        alert("Payment Failed");
-      }
+      const order = response.data.order;
+
+      const options = {
+        key: "rzp_live_SngV5d3BGmZJ1p",
+
+        amount: order.amount,
+
+        currency: order.currency,
+
+        name: "FabricAI Pro",
+
+        description: `${plan} Subscription`,
+
+        order_id: order.id,
+
+        handler: async function (response) {
+
+          alert("Payment Successful");
+
+          console.log(response);
+
+        },
+
+        prefill: {
+          name: "Customer",
+          email: "customer@email.com",
+        },
+
+        theme: {
+          color: "#2563eb",
+        },
+      };
+
+      const paymentObject = new window.Razorpay(options);
+
+      paymentObject.open();
 
     } catch (error) {
+
       console.log(error);
+
       alert("Backend Payment Error");
+
     }
   };
 
@@ -73,47 +132,24 @@ export default function Billing() {
           }}
         >
 
-          {/* STARTER */}
           <div
             style={{
               background: "#0f172a",
               padding: "40px",
               borderRadius: "24px",
               textAlign: "center",
-              border: "1px solid #1e293b",
             }}
           >
-            <h2 style={{ fontSize: "32px" }}>Starter</h2>
+            <h2>Starter</h2>
 
-            <h1
-              style={{
-                fontSize: "56px",
-                margin: "20px 0",
-              }}
-            >
+            <h1 style={{ fontSize: "56px" }}>
               ₹499
             </h1>
-
-            <p style={{ color: "#94a3b8" }}>
-              Perfect for beginners
-            </p>
-
-            <div
-              style={{
-                marginTop: "30px",
-                lineHeight: "2",
-                color: "#cbd5e1",
-              }}
-            >
-              <p>✓ AI Chat</p>
-              <p>✓ 10,000 Tokens</p>
-              <p>✓ Email Support</p>
-            </div>
 
             <button
               onClick={() => startPayment("Starter", 499)}
               style={{
-                marginTop: "35px",
+                marginTop: "30px",
                 width: "100%",
                 padding: "16px",
                 borderRadius: "12px",
@@ -128,47 +164,24 @@ export default function Billing() {
             </button>
           </div>
 
-          {/* PRO */}
           <div
             style={{
               background: "#2563eb",
               padding: "40px",
               borderRadius: "24px",
               textAlign: "center",
-              transform: "scale(1.05)",
             }}
           >
-            <h2 style={{ fontSize: "32px" }}>Pro</h2>
+            <h2>Pro</h2>
 
-            <h1
-              style={{
-                fontSize: "56px",
-                margin: "20px 0",
-              }}
-            >
+            <h1 style={{ fontSize: "56px" }}>
               ₹1499
             </h1>
-
-            <p>
-              Most popular plan
-            </p>
-
-            <div
-              style={{
-                marginTop: "30px",
-                lineHeight: "2",
-              }}
-            >
-              <p>✓ Unlimited AI Chat</p>
-              <p>✓ Marketing Tools</p>
-              <p>✓ Fast Responses</p>
-              <p>✓ Priority Support</p>
-            </div>
 
             <button
               onClick={() => startPayment("Pro", 1499)}
               style={{
-                marginTop: "35px",
+                marginTop: "30px",
                 width: "100%",
                 padding: "16px",
                 borderRadius: "12px",
@@ -184,48 +197,24 @@ export default function Billing() {
             </button>
           </div>
 
-          {/* AGENCY */}
           <div
             style={{
               background: "#0f172a",
               padding: "40px",
               borderRadius: "24px",
               textAlign: "center",
-              border: "1px solid #1e293b",
             }}
           >
-            <h2 style={{ fontSize: "32px" }}>Agency</h2>
+            <h2>Agency</h2>
 
-            <h1
-              style={{
-                fontSize: "56px",
-                margin: "20px 0",
-              }}
-            >
+            <h1 style={{ fontSize: "56px" }}>
               ₹4999
             </h1>
-
-            <p style={{ color: "#94a3b8" }}>
-              For businesses & teams
-            </p>
-
-            <div
-              style={{
-                marginTop: "30px",
-                lineHeight: "2",
-                color: "#cbd5e1",
-              }}
-            >
-              <p>✓ Team Access</p>
-              <p>✓ White Label</p>
-              <p>✓ API Access</p>
-              <p>✓ Premium Support</p>
-            </div>
 
             <button
               onClick={() => startPayment("Agency", 4999)}
               style={{
-                marginTop: "35px",
+                marginTop: "30px",
                 width: "100%",
                 padding: "16px",
                 borderRadius: "12px",
