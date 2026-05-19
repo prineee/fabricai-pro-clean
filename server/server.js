@@ -11,37 +11,38 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-/* =========================================
+/* ======================================
    GROQ AI
-========================================= */
+====================================== */
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
 });
 
-/* =========================================
+/* ======================================
    RAZORPAY
-========================================= */
+====================================== */
 
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
-/* =========================================
-   TEST ROUTE
-========================================= */
+/* ======================================
+   HOME ROUTE
+====================================== */
 
 app.get("/", (req, res) => {
   res.send("FabricAI Backend Running");
 });
 
-/* =========================================
-   AI GENERATOR ROUTE
-========================================= */
+/* ======================================
+   AI GENERATOR
+====================================== */
 
-    app.post("/api/ai/generate", async (req, res) => {
+app.post("/api/ai/generate", async (req, res) => {
   try {
+
     const { prompt } = req.body;
 
     if (!prompt) {
@@ -50,25 +51,25 @@ app.get("/", (req, res) => {
       });
     }
 
-    console.log("AI Prompt:", prompt);
+    const completion =
+      await groq.chat.completions.create({
+        messages: [
+          {
+            role: "user",
+            content: prompt,
+          },
+        ],
 
-    const chatCompletion = await groq.chat.completions.create({
-      messages: [
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
-      model: "llama-3.3-70b-versatile",
-    });
-
-    console.log(chatCompletion);
+        model: "llama-3.3-70b-versatile",
+      });
 
     res.json({
-      result: chatCompletion.choices[0].message.content,
+      result:
+        completion.choices[0].message.content,
     });
+
   } catch (error) {
-    console.log("FULL AI ERROR:");
+
     console.log(error);
 
     res.status(500).json({
@@ -77,38 +78,51 @@ app.get("/", (req, res) => {
   }
 });
 
-/* =========================================
-   PAYMENT ROUTE
-========================================= */
+/* ======================================
+   PAYMENT
+====================================== */
 
-app.post("/api/payment/create-order", async (req, res) => {
-  try {
-    const { amount } = req.body;
+app.post(
+  "/api/payment/create-order",
+  async (req, res) => {
+    try {
 
-    const options = {
-      amount: amount * 100,
-      currency: "INR",
-      receipt: "receipt_order_" + Date.now(),
-    };
+      const { amount } = req.body;
 
-    const order = await razorpay.orders.create(options);
+      const options = {
+        amount: Number(amount) * 100,
+        currency: "INR",
+        receipt:
+          "receipt_" + Date.now(),
+      };
 
-    res.json(order);
-  } catch (error) {
-    console.log("PAYMENT ERROR:", error);
+      const order =
+        await razorpay.orders.create(
+          options
+        );
 
-    res.status(500).json({
-      error: "Payment backend error",
-    });
+      res.json(order);
+
+    } catch (error) {
+
+      console.log(error);
+
+      res.status(500).json({
+        error: "Payment failed",
+      });
+    }
   }
-});
+);
 
-/* =========================================
-   START SERVER
-========================================= */
+/* ======================================
+   SERVER
+====================================== */
 
-const PORT = process.env.PORT || 10000;
+const PORT =
+  process.env.PORT || 10000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(
+    `Server running on ${PORT}`
+  );
 });
