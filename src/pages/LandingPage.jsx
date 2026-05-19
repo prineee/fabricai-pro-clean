@@ -1,298 +1,534 @@
-export default function FabricAILandingPage() {
+import { Link } from "react-router-dom";
+
+export default function LandingPage() {
   return (
-    <div className="bg-[#050816] text-white min-h-screen">
+    <div
+      style={{
+        background: "#020617",
+        color: "white",
+        fontFamily: "Arial",
+      }}
+    >
       {/* HERO SECTION */}
-      <section className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
-        <div>
-          <div className="inline-block bg-blue-600/20 text-blue-400 px-4 py-2 rounded-full text-sm mb-6">
-            NEW AI BUSINESS PLATFORM
-          </div>
-
-          <h1 className="text-5xl md:text-7xl font-black leading-tight">
-            Build AI Content,
-            <span className="text-blue-500"> Chatbots</span>,
-            Images & Marketing
-            <span className="text-blue-500"> In One App</span>
-          </h1>
-
-          <p className="text-gray-400 text-xl mt-8 leading-relaxed">
-            FabricAI Pro helps creators, marketers, freelancers, and agencies generate AI content, business assets, landing pages, social posts, and customer support instantly.
-          </p>
-
-          <div className="flex flex-wrap gap-4 mt-10">
-            <a
-              href="/billing"
-              className="bg-blue-600 hover:bg-blue-700 transition px-8 py-4 rounded-2xl text-lg font-bold"
+      <section
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "80px 20px",
+          background:
+            "linear-gradient(to bottom right,#020617,#0f172a,#1e3a8a)",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: "1200px",
+            width: "100%",
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "60px",
+            alignItems: "center",
+          }}
+        >
+          <div>
+            <h1
+              style={{
+                fontSize: "70px",
+                lineHeight: "80px",
+                marginBottom: "30px",
+                fontWeight: "bold",
+              }}
             >
-              Get Instant Access
-            </a>
+              Create AI Business Content In Seconds
+            </h1>
 
-            <a
-              href="#demo"
-              className="border border-gray-700 hover:border-blue-500 transition px-8 py-4 rounded-2xl text-lg font-bold"
+            <p
+              style={{
+                fontSize: "22px",
+                color: "#cbd5e1",
+                marginBottom: "40px",
+              }}
             >
-              Watch Demo
-            </a>
+              FabricAI Pro helps marketers, agencies and creators generate
+              AI-powered business content instantly.
+            </p>
+
+            <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
+              <Link to="/billing">
+                <button
+                  style={{
+                    padding: "18px 40px",
+                    borderRadius: "12px",
+                    border: "none",
+                    background: "#2563eb",
+                    color: "white",
+                    fontSize: "20px",
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Get Instant Access
+                </button>
+              </Link>
+
+              <Link to="/register">
+                <button
+                  style={{
+                    padding: "18px 40px",
+                    borderRadius: "12px",
+                    border: "2px solid white",
+                    background: "transparent",
+                    color: "white",
+                    fontSize: "20px",
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Create Free Account
+                </button>
+              </Link>
+            </div>
           </div>
 
-          <div className="flex gap-8 mt-10 text-gray-400">
-            <div>
-              <h3 className="text-3xl font-bold text-white">25K+</h3>
-              <p>Users</p>
-            </div>
-
-            <div>
-              <h3 className="text-3xl font-bold text-white">1M+</h3>
-              <p>AI Generations</p>
-            </div>
-
-            <div>
-              <h3 className="text-3xl font-bold text-white">99%</h3>
-              <p>Uptime</p>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div className="bg-gradient-to-br from-blue-600 to-cyan-500 rounded-[40px] p-1 shadow-2xl shadow-blue-500/20">
-            <div className="bg-[#0b1120] rounded-[40px] p-6">
-              <img
-                src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop"
-                alt="AI Dashboard"
-                className="rounded-3xl"
-              />
-            </div>
+          <div>
+            <img
+              src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1600&auto=format&fit=crop"
+              alt="AI"
+              style={{
+                width: "100%",
+                borderRadius: "25px",
+                boxShadow: "0 0 40px rgba(37,99,235,0.4)",
+              }}
+            />
           </div>
         </div>
       </section>
 
-      {/* FEATURES */}
-      <section className="max-w-7xl mx-auto px-6 py-24">
-        <div className="text-center mb-20">
-          <h2 className="text-5xl font-black">
-            Everything Needed To Run
-            <span className="text-blue-500"> AI Business</span>
-          </h2>
+      {/* VIDEO DEMO */}
+      <section
+        style={{
+          padding: "100px 20px",
+          textAlign: "center",
+          background: "#0f172a",
+        }}
+      >
+        <h2
+          style={{
+            fontSize: "55px",
+            marginBottom: "20px",
+          }}
+        >
+          Watch FabricAI Pro In Action
+        </h2>
 
-          <p className="text-gray-400 text-xl mt-6 max-w-3xl mx-auto">
-            Replace multiple expensive tools with one powerful AI platform.
-          </p>
+        <p
+          style={{
+            color: "#cbd5e1",
+            marginBottom: "50px",
+            fontSize: "20px",
+          }}
+        >
+          See how businesses generate AI content within minutes.
+        </p>
+
+        <div
+          style={{
+            maxWidth: "1000px",
+            margin: "0 auto",
+          }}
+        >
+          <iframe
+            width="100%"
+            height="560"
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            title="Demo"
+            style={{
+              border: "none",
+              borderRadius: "25px",
+            }}
+            allowFullScreen
+          ></iframe>
         </div>
+      </section>
 
-        <div className="grid md:grid-cols-3 gap-8">
+      {/* FEATURES */}
+      <section
+        style={{
+          padding: "100px 20px",
+          background: "#020617",
+        }}
+      >
+        <h2
+          style={{
+            textAlign: "center",
+            fontSize: "55px",
+            marginBottom: "70px",
+          }}
+        >
+          Powerful AI Features
+        </h2>
+
+        <div
+          style={{
+            maxWidth: "1200px",
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))",
+            gap: "30px",
+          }}
+        >
           {[
-            {
-              title: 'AI Chat Assistant',
-              desc: 'Generate business content, emails, blogs, and marketing copy instantly.',
-            },
-            {
-              title: 'AI Image Creator',
-              desc: 'Create professional images, ads, thumbnails, and social media graphics.',
-            },
-            {
-              title: 'Landing Page Builder',
-              desc: 'Build sales pages and lead funnels without coding.',
-            },
-            {
-              title: 'Marketing Toolkit',
-              desc: 'Create ads, hooks, scripts, captions, and product descriptions.',
-            },
-            {
-              title: 'Agency Dashboard',
-              desc: 'Manage multiple clients and AI workspaces.',
-            },
-            {
-              title: 'Subscription Billing',
-              desc: 'Integrated Razorpay, WarriorPlus, and JVZoo support.',
-            },
+            "AI Content Generator",
+            "Business Templates",
+            "AI Chat Assistant",
+            "Marketing Content",
+            "Social Media Generator",
+            "Commercial License",
           ].map((item, index) => (
             <div
               key={index}
-              className="bg-[#0f172a] border border-gray-800 rounded-3xl p-8 hover:border-blue-500 transition"
+              style={{
+                background: "#0f172a",
+                padding: "40px",
+                borderRadius: "20px",
+                border: "1px solid #1e293b",
+              }}
             >
-              <div className="w-14 h-14 rounded-2xl bg-blue-600 flex items-center justify-center text-2xl mb-6">
-                ✨
-              </div>
+              <h3
+                style={{
+                  fontSize: "28px",
+                  marginBottom: "20px",
+                }}
+              >
+                {item}
+              </h3>
 
-              <h3 className="text-2xl font-bold mb-4">{item.title}</h3>
-
-              <p className="text-gray-400 leading-relaxed">
-                {item.desc}
+              <p style={{ color: "#cbd5e1" }}>
+                Professional AI-powered tools built for creators and agencies.
               </p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* DEMO */}
+      {/* BENEFITS */}
       <section
-        id="demo"
-        className="bg-[#0b1120] py-24"
+        style={{
+          padding: "100px 20px",
+          background: "#0f172a",
+        }}
       >
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <h2 className="text-5xl font-black mb-10">
-            Watch FabricAI Pro In Action
-          </h2>
+        <h2
+          style={{
+            textAlign: "center",
+            fontSize: "55px",
+            marginBottom: "70px",
+          }}
+        >
+          Why Users Love FabricAI Pro
+        </h2>
 
-          <div className="rounded-[40px] overflow-hidden border border-gray-800 shadow-2xl shadow-blue-500/10">
-            <iframe
-              className="w-full aspect-video"
-              src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-              title="Demo"
-              allowFullScreen
-            />
-          </div>
+        <div
+          style={{
+            maxWidth: "1000px",
+            margin: "0 auto",
+            display: "grid",
+            gap: "30px",
+          }}
+        >
+          {[
+            "Save 10+ hours every week",
+            "Generate AI business content instantly",
+            "Perfect for agencies and freelancers",
+            "Commercial license included",
+            "Cloud based platform",
+          ].map((item, index) => (
+            <div
+              key={index}
+              style={{
+                background: "#020617",
+                padding: "30px",
+                borderRadius: "20px",
+                fontSize: "24px",
+              }}
+            >
+              ✅ {item}
+            </div>
+          ))}
         </div>
       </section>
 
       {/* PRICING */}
-      <section className="max-w-7xl mx-auto px-6 py-24">
-        <div className="text-center mb-20">
-          <h2 className="text-5xl font-black">
-            Choose Your Plan
-          </h2>
+      <section
+        style={{
+          padding: "100px 20px",
+          background: "#020617",
+        }}
+      >
+        <h2
+          style={{
+            textAlign: "center",
+            fontSize: "55px",
+            marginBottom: "70px",
+          }}
+        >
+          Choose Your Plan
+        </h2>
 
-          <p className="text-gray-400 text-xl mt-6">
-            Start small or scale your agency.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-8">
+        <div
+          style={{
+            maxWidth: "1200px",
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))",
+            gap: "40px",
+          }}
+        >
           {[
             {
-              name: 'Starter',
-              price: '₹499',
-              features: ['AI Chat', 'AI Content', 'Basic Dashboard'],
+              name: "Starter",
+              price: "₹499",
             },
             {
-              name: 'Pro',
-              price: '₹1499',
-              features: ['Everything In Starter', 'AI Images', 'Advanced Marketing Tools'],
-              featured: true,
+              name: "Pro",
+              price: "₹1499",
             },
             {
-              name: 'Agency',
-              price: '₹4999',
-              features: ['Unlimited Usage', 'Client Workspaces', 'Commercial License'],
+              name: "Agency",
+              price: "₹4999",
             },
           ].map((plan, index) => (
             <div
               key={index}
-              className={`rounded-[40px] p-10 border ${
-                plan.featured
-                  ? 'bg-blue-600 border-blue-400 scale-105'
-                  : 'bg-[#0f172a] border-gray-800'
-              }`}
+              style={{
+                background: index === 1 ? "#2563eb" : "#0f172a",
+                padding: "50px 30px",
+                borderRadius: "25px",
+                textAlign: "center",
+              }}
             >
-              <h3 className="text-3xl font-black">
-                {plan.name}
-              </h3>
+              <h3 style={{ fontSize: "40px" }}>{plan.name}</h3>
 
-              <div className="text-6xl font-black mt-8">
-                {plan.price}
-              </div>
-
-              <div className="mt-10 space-y-4">
-                {plan.features.map((feature, i) => (
-                  <div key={i} className="flex items-center gap-3 text-lg">
-                    <span>✅</span>
-                    <span>{feature}</span>
-                  </div>
-                ))}
-              </div>
-
-              <a
-                href="/billing"
-                className={`block text-center mt-10 py-4 rounded-2xl font-bold text-lg ${
-                  plan.featured
-                    ? 'bg-white text-blue-600'
-                    : 'bg-blue-600 text-white'
-                }`}
+              <h1
+                style={{
+                  fontSize: "80px",
+                  margin: "30px 0",
+                }}
               >
-                Get Started
-              </a>
+                {plan.price}
+              </h1>
+
+              <Link to="/billing">
+                <button
+                  style={{
+                    padding: "18px 40px",
+                    borderRadius: "12px",
+                    border: "none",
+                    background: "white",
+                    color: "#2563eb",
+                    fontSize: "20px",
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Get Access
+                </button>
+              </Link>
             </div>
           ))}
         </div>
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="bg-[#0b1120] py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl font-black">
-              Users Love FabricAI
-            </h2>
-          </div>
+      <section
+        style={{
+          padding: "100px 20px",
+          background: "#0f172a",
+        }}
+      >
+        <h2
+          style={{
+            textAlign: "center",
+            fontSize: "55px",
+            marginBottom: "70px",
+          }}
+        >
+          Customer Success Stories
+        </h2>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              'This platform replaced 6 different AI tools for my business.',
-              'I created client content in minutes instead of hours.',
-              'Perfect for agencies and online marketers.',
-            ].map((review, index) => (
-              <div
-                key={index}
-                className="bg-[#0f172a] border border-gray-800 rounded-3xl p-8"
+        <div
+          style={{
+            maxWidth: "1200px",
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))",
+            gap: "30px",
+          }}
+        >
+          {[
+            "This tool changed my agency workflow completely.",
+            "Best AI business platform I used this year.",
+            "I created client content in minutes.",
+          ].map((review, index) => (
+            <div
+              key={index}
+              style={{
+                background: "#020617",
+                padding: "40px",
+                borderRadius: "20px",
+              }}
+            >
+              <p
+                style={{
+                  fontSize: "22px",
+                  lineHeight: "35px",
+                }}
               >
-                <div className="text-yellow-400 text-2xl mb-4">
-                  ⭐⭐⭐⭐⭐
-                </div>
+                "{review}"
+              </p>
 
-                <p className="text-gray-300 text-lg leading-relaxed">
-                  {review}
-                </p>
-              </div>
-            ))}
-          </div>
+              <h4 style={{ marginTop: "30px" }}>★★★★★ Verified User</h4>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* FINAL CTA */}
-      <section className="max-w-6xl mx-auto px-6 py-24 text-center">
-        <div className="bg-gradient-to-r from-blue-600 to-cyan-500 rounded-[40px] p-16 shadow-2xl shadow-blue-500/20">
-          <h2 className="text-6xl font-black leading-tight">
-            Ready To Launch
-            Your AI Business?
-          </h2>
+      {/* FAQ */}
+      <section
+        style={{
+          padding: "100px 20px",
+          background: "#020617",
+        }}
+      >
+        <h2
+          style={{
+            textAlign: "center",
+            fontSize: "55px",
+            marginBottom: "70px",
+          }}
+        >
+          Frequently Asked Questions
+        </h2>
 
-          <p className="text-xl mt-8 text-blue-100 max-w-3xl mx-auto">
-            Join creators and agencies using FabricAI Pro to build AI-powered businesses.
-          </p>
+        <div
+          style={{
+            maxWidth: "900px",
+            margin: "0 auto",
+            display: "grid",
+            gap: "25px",
+          }}
+        >
+          {[
+            "Do I get commercial rights?",
+            "Is this beginner friendly?",
+            "Can agencies use this?",
+            "Is payment secure?",
+          ].map((faq, index) => (
+            <div
+              key={index}
+              style={{
+                background: "#0f172a",
+                padding: "30px",
+                borderRadius: "20px",
+              }}
+            >
+              <h3>{faq}</h3>
 
-          <a
-            href="/billing"
-            className="inline-block mt-10 bg-white text-blue-600 px-10 py-5 rounded-2xl text-xl font-black"
-          >
-            Start Today
-          </a>
+              <p style={{ color: "#cbd5e1", marginTop: "15px" }}>
+                Yes. FabricAI Pro is built for professionals and beginners.
+              </p>
+            </div>
+          ))}
         </div>
+      </section>
+
+      {/* AFFILIATE */}
+      <section
+        style={{
+          padding: "120px 20px",
+          textAlign: "center",
+          background:
+            "linear-gradient(to right,#1e3a8a,#2563eb,#1d4ed8)",
+        }}
+      >
+        <h2
+          style={{
+            fontSize: "60px",
+            marginBottom: "20px",
+          }}
+        >
+          Promote FabricAI Pro & Earn Big Commissions
+        </h2>
+
+        <p
+          style={{
+            fontSize: "24px",
+            marginBottom: "40px",
+          }}
+        >
+          Join our WarriorPlus & JVZoo affiliate program today.
+        </p>
+
+        <button
+          style={{
+            padding: "20px 50px",
+            borderRadius: "12px",
+            border: "none",
+            background: "white",
+            color: "#2563eb",
+            fontSize: "22px",
+            fontWeight: "bold",
+            cursor: "pointer",
+          }}
+        >
+          Become An Affiliate
+        </button>
       </section>
 
       {/* FOOTER */}
-      <footer className="border-t border-gray-800 py-10 text-center text-gray-500">
-        © 2026 FabricAI Pro. All rights reserved.
-      <div
-  style={{
-    display: 'flex',
-    gap: '20px',
-    justifyContent: 'center',
-    marginTop: '40px',
-  }}
->
-  <a href="/privacy-policy" style={{ color: 'white' }}>
-    Privacy Policy
-  </a>
+      <footer
+        style={{
+          background: "#020617",
+          padding: "50px 20px",
+          textAlign: "center",
+          borderTop: "1px solid #1e293b",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "30px",
+            flexWrap: "wrap",
+            marginBottom: "20px",
+          }}
+        >
+          <Link
+            to="/privacy-policy"
+            style={{ color: "white", textDecoration: "none" }}
+          >
+            Privacy Policy
+          </Link>
 
-  <a href="/terms" style={{ color: 'white' }}>
-    Terms
-  </a>
+          <Link
+            to="/refund-policy"
+            style={{ color: "white", textDecoration: "none" }}
+          >
+            Refund Policy
+          </Link>
 
-  <a href="/refund-policy" style={{ color: 'white' }}>
-    Refund Policy
-  </a>
-</div>
-      
+          <Link
+            to="/terms"
+            style={{ color: "white", textDecoration: "none" }}
+          >
+            Terms
+          </Link>
+        </div>
+
+        <p style={{ color: "#94a3b8" }}>
+          © 2026 FabricAI Pro. All Rights Reserved.
+        </p>
       </footer>
     </div>
   );
