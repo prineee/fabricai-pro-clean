@@ -3,7 +3,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import Signup from "./pages/Signup";
+import Signup from "./pages/signup";
 import LandingPage from "./pages/LandingPage";
 import Billing from "./pages/Billing";
 import Dashboard from "./pages/Dashboard";
@@ -34,7 +34,7 @@ export default function App() {
 
         {/* REGISTER */}
         <Route path="/register" element={<Register />} />
-
+        <Route path="/signup" element={<Signup />} />
         {/* LEGAL */}
         <Route
           path="/privacy-policy"
