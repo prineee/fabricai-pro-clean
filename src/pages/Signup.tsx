@@ -39,14 +39,6 @@ export default function Signup() {
         return;
       }
 
-      if (password.length < 6) {
-        setError(
-          "Password must be at least 6 characters"
-        );
-        setLoading(false);
-        return;
-      }
-
       if (password !== confirmPassword) {
         setError("Passwords do not match");
         setLoading(false);
@@ -65,11 +57,11 @@ export default function Signup() {
       );
 
       alert(
-        "Verification email sent successfully. Please verify your email before login."
+        "Verification email sent successfully"
       );
 
       navigate("/login");
-    } catch (err) {
+    } catch (err: any) {
       setError(err.message);
     } finally {
       setLoading(false);
@@ -90,53 +82,36 @@ export default function Signup() {
       <div
         style={{
           width: "100%",
-          maxWidth: "650px",
+          maxWidth: "600px",
           background: "#0f172a",
           padding: "50px",
-          borderRadius: "25px",
-          boxShadow:
-            "0px 0px 40px rgba(37,99,235,0.3)",
+          borderRadius: "20px",
         }}
       >
         <h1
           style={{
             color: "white",
-            fontSize: "55px",
-            marginBottom: "10px",
-            fontWeight: "bold",
+            fontSize: "50px",
+            marginBottom: "30px",
           }}
         >
           Create Account
         </h1>
 
-        <p
-          style={{
-            color: "#94a3b8",
-            marginBottom: "35px",
-            fontSize: "18px",
-          }}
-        >
-          Join FabricAI Pro and start generating
-          AI business content instantly
-        </p>
-
         {error && (
-          <div
+          <p
             style={{
-              background: "#7f1d1d",
-              color: "white",
-              padding: "15px",
-              borderRadius: "10px",
+              color: "red",
               marginBottom: "20px",
             }}
           >
             {error}
-          </div>
+          </p>
         )}
 
         <input
           type="email"
-          placeholder="Enter Email Address"
+          placeholder="Email Address"
           value={email}
           onChange={(e) =>
             setEmail(e.target.value)
@@ -175,15 +150,14 @@ export default function Signup() {
             background: "#2563eb",
             color: "white",
             border: "none",
-            borderRadius: "12px",
-            fontSize: "22px",
-            fontWeight: "bold",
+            borderRadius: "10px",
+            fontSize: "20px",
             cursor: "pointer",
             marginTop: "10px",
           }}
         >
           {loading
-            ? "Creating Account..."
+            ? "Creating..."
             : "Register"}
         </button>
 
@@ -192,16 +166,13 @@ export default function Signup() {
             color: "white",
             marginTop: "30px",
             textAlign: "center",
-            fontSize: "18px",
           }}
         >
-          Already have an account?{" "}
+          Already have account?{" "}
           <Link
             to="/login"
             style={{
               color: "#3b82f6",
-              textDecoration: "none",
-              fontWeight: "bold",
             }}
           >
             Login
@@ -216,10 +187,7 @@ const inputStyle = {
   width: "100%",
   padding: "18px",
   marginBottom: "20px",
-  borderRadius: "12px",
-  border: "1px solid #1e293b",
-  background: "#020617",
-  color: "white",
+  borderRadius: "10px",
+  border: "none",
   fontSize: "18px",
-  outline: "none",
 };
