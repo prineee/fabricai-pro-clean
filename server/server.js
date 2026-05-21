@@ -8,7 +8,13 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 /* =====================================================
@@ -141,7 +147,7 @@ app.post("/generate-ai", async (req, res) => {
           },
         ],
 
-        model: "llama3-70b-8192",
+        model: "llama-3.3-70b-versatile",
 
         temperature: 0.7,
 
