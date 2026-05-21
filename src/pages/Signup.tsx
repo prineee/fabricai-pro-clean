@@ -45,9 +45,9 @@ export default function Signup() {
       setTimeout(() => {
         navigate("/login");
       }, 3000);
-    } catch (error: any) {
-      setMessage(error.message);
-    } finally {
+    } catch (error) {
+      setMessage(String(error));
+     } finally {
       setLoading(false);
     }
   };
