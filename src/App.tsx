@@ -6,7 +6,6 @@ import {
 } from "react-router-dom";
 
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 
@@ -275,8 +274,7 @@ function App() {
             />
           }
         />
-        <Route path="/signup" element={<Signup />} />
-
+        
 
 
       </Routes>
