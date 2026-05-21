@@ -1,76 +1,63 @@
 import { useState } from "react";
-import axios from "axios";
 
 export default function Dashboard() {
-
   const [prompt, setPrompt] = useState("");
-
-  const [result, setResult] = useState("");
-
+  const [generatedContent, setGeneratedContent] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const history = [
-    "Facebook Ads for Fitness Product",
-    "AI Blog about Digital Marketing",
-    "Email Campaign for SaaS Product",
-    "Landing Page for AI Startup",
-  ];
-
-  // =====================================
-  // GENERATE CONTENT
-  // =====================================
-
-  const generateContent = async (type) => {
-
-    if (!prompt) {
-      alert("Enter Prompt");
-      return;
-    }
-
+  const generateAI = async (type) => {
     try {
+      if (!prompt) {
+        alert("Please enter your prompt");
+        return;
+      }
 
       setLoading(true);
 
-      const response = await axios.post(
-        "https://fabricai-backend.onrender.com/api/generate",
+      setGeneratedContent("Generating AI Content...");
+
+      const response = await fetch(
+        "https://fabricai-backend.onrender.com/generate-ai",
         {
-          prompt,
-          type,
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({
+            prompt,
+            type,
+          }),
         }
       );
 
-      setResult(response.data.result);
+      const data = await response.json();
 
-      setLoading(false);
+      console.log(data);
 
+      if (data.success) {
+        setGeneratedContent(data.result);
+      } else {
+        alert(data.error || "AI Generation Failed");
+      }
     } catch (error) {
-
       console.log(error);
 
+      alert(error.message);
+    } finally {
       setLoading(false);
-
-      alert("AI Generation Failed");
     }
   };
 
-  // =====================================
-  // COPY RESULT
-  // =====================================
-
   const copyContent = () => {
-
-    navigator.clipboard.writeText(result);
+    navigator.clipboard.writeText(generatedContent);
 
     alert("Copied Successfully");
   };
 
-  // =====================================
-  // DOWNLOAD RESULT
-  // =====================================
-
   const downloadContent = () => {
-
-    const blob = new Blob([result], {
+    const blob = new Blob([generatedContent], {
       type: "text/plain",
     });
 
@@ -83,163 +70,81 @@ export default function Dashboard() {
     a.download = "fabricai-content.txt";
 
     a.click();
-
-    alert("Downloaded Successfully");
   };
-
-  // =====================================
-  // LOGOUT
-  // =====================================
-
-  const logout = () => {
-
-    localStorage.removeItem("user");
-
-    window.location.href = "/login";
-  };
-
-  // =====================================
-  // NAVIGATION
-  // =====================================
-
-  const goBilling = () => {
-    window.location.href = "/billing";
-  };
-
-  const goSettings = () => {
-    alert("Settings Coming Soon");
-  };
-
-  const goSaved = () => {
-    alert("Saved Content Coming Soon");
-  };
-
-  // =====================================
-  // UI
-  // =====================================
 
   return (
     <div
       style={{
         display: "flex",
-        background: "#020617",
         minHeight: "100vh",
+        background: "#020617",
         color: "white",
         fontFamily: "Arial",
       }}
     >
-
       {/* SIDEBAR */}
 
       <div
         style={{
           width: "260px",
           background: "#081028",
-          padding: "25px",
+          padding: "30px 20px",
           borderRight: "1px solid #1e293b",
         }}
       >
-
         <h1
           style={{
-            color: "#3b82f6",
+            fontSize: "34px",
+            fontWeight: "bold",
             marginBottom: "40px",
+            color: "#3b82f6",
           }}
         >
           FabricAI
         </h1>
 
-        <SidebarButton text="Dashboard" />
+        <div style={{ display: "flex", flexDirection: "column", gap: "22px" }}>
+          <button style={sidebarBtn}>Dashboard</button>
 
-        <SidebarButton
-          text="AI Writer"
-          onClick={() =>
-            window.scrollTo({
-              top: 300,
-              behavior: "smooth",
-            })
-          }
-        />
+          <button style={sidebarBtn}>AI Writer</button>
 
-        <SidebarButton
-          text="Blog Generator"
-          onClick={() =>
-            generateContent("blog")
-          }
-        />
+          <button style={sidebarBtn}>Blog Generator</button>
 
-        <SidebarButton
-          text="Ad Generator"
-          onClick={() =>
-            generateContent("ads")
-          }
-        />
+          <button style={sidebarBtn}>Ad Generator</button>
 
-        <SidebarButton
-          text="Email Generator"
-          onClick={() =>
-            generateContent("email")
-          }
-        />
+          <button style={sidebarBtn}>Email Generator</button>
 
-        <SidebarButton
-          text="Landing Pages"
-          onClick={() =>
-            generateContent("landing")
-          }
-        />
+          <button style={sidebarBtn}>Landing Pages</button>
 
-        <SidebarButton
-          text="Saved Content"
-          onClick={goSaved}
-        />
+          <button style={sidebarBtn}>Saved Content</button>
 
-        <SidebarButton
-          text="Billing"
-          onClick={goBilling}
-        />
+          <button style={sidebarBtn}>Billing</button>
 
-        <SidebarButton
-          text="Settings"
-          onClick={goSettings}
-        />
+          <button style={sidebarBtn}>Settings</button>
 
-        <SidebarButton
-          text="Logout"
-          onClick={logout}
-        />
-
-        {/* PRO CARD */}
+          <button style={sidebarBtn}>Logout</button>
+        </div>
 
         <div
           style={{
+            marginTop: "60px",
             background: "#2563eb",
-            padding: "20px",
+            padding: "25px",
             borderRadius: "20px",
-            marginTop: "40px",
           }}
         >
-          <h3>PRO PLAN</h3>
+          <h2 style={{ marginBottom: "15px" }}>PRO PLAN</h2>
 
-          <p
-            style={{
-              fontSize: "14px",
-              color: "#dbeafe",
-            }}
-          >
+          <p style={{ marginBottom: "20px" }}>
             Unlimited AI generations
           </p>
 
           <button
-            onClick={goBilling}
             style={{
-              marginTop: "15px",
               width: "100%",
-              padding: "12px",
+              padding: "14px",
+              borderRadius: "12px",
               border: "none",
-              borderRadius: "10px",
-              background: "white",
-              color: "#2563eb",
               fontWeight: "bold",
               cursor: "pointer",
             }}
@@ -249,7 +154,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* MAIN */}
+      {/* MAIN CONTENT */}
 
       <div
         style={{
@@ -257,207 +162,150 @@ export default function Dashboard() {
           padding: "40px",
         }}
       >
-
-        {/* HEADER */}
-
-        <div
+        <h1
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
+            fontSize: "54px",
+            fontWeight: "bold",
+            marginBottom: "10px",
           }}
         >
-          <div>
-            <h1
-              style={{
-                fontSize: "42px",
-                marginBottom: "10px",
-              }}
-            >
-              Welcome Back 👋
-            </h1>
+          FabricAI Pro Dashboard
+        </h1>
 
-            <p
-              style={{
-                color: "#94a3b8",
-              }}
-            >
-              Generate high converting AI content instantly
-            </p>
-          </div>
+        <p
+          style={{
+            color: "#cbd5e1",
+            fontSize: "24px",
+            marginBottom: "40px",
+          }}
+        >
+          Generate business content instantly using AI
+        </p>
 
-          <div
-            style={{
-              width: "45px",
-              height: "45px",
-              borderRadius: "50%",
-              background: "#2563eb",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            N
-          </div>
-        </div>
-
-        {/* STATS */}
+        {/* TOP CARDS */}
 
         <div
           style={{
             display: "grid",
-            gridTemplateColumns:
-              "repeat(auto-fit,minmax(220px,1fr))",
+            gridTemplateColumns: "repeat(4, 1fr)",
             gap: "20px",
-            marginTop: "40px",
+            marginBottom: "40px",
           }}
         >
-          <Card
-            title="Total Generations"
-            value="12,480"
-          />
+          <div style={cardStyle}>
+            <h3>Total Generations</h3>
+            <h1>12,480</h1>
+          </div>
 
-          <Card
-            title="Saved Projects"
-            value="348"
-          />
+          <div style={cardStyle}>
+            <h3>Saved Projects</h3>
+            <h1>348</h1>
+          </div>
 
-          <Card
-            title="Pro Plan"
-            value="ACTIVE"
-          />
+          <div style={cardStyle}>
+            <h3>Pro Plan</h3>
+            <h1>ACTIVE</h1>
+          </div>
 
-          <Card
-            title="Affiliate Earnings"
-            value="₹24,500"
-          />
+          <div style={cardStyle}>
+            <h3>Affiliate Earnings</h3>
+            <h1>₹24,500</h1>
+          </div>
         </div>
 
-        {/* GENERATOR */}
+        {/* AI GENERATOR */}
 
-        <div
-          style={{
-            background: "#081028",
-            padding: "25px",
-            borderRadius: "20px",
-            marginTop: "30px",
-          }}
-        >
-
-          <h2>AI Content Generator</h2>
+        <div style={sectionStyle}>
+          <h2 style={{ marginBottom: "20px", fontSize: "34px" }}>
+            AI Content Generator
+          </h2>
 
           <textarea
             value={prompt}
-            onChange={(e) =>
-              setPrompt(e.target.value)
-            }
+            onChange={(e) => setPrompt(e.target.value)}
             placeholder="Describe your business, product, or content idea..."
             style={{
               width: "100%",
-              height: "120px",
-              marginTop: "20px",
-              background: "#020617",
+              height: "180px",
+              borderRadius: "18px",
               border: "1px solid #334155",
-              borderRadius: "15px",
-              padding: "20px",
+              background: "#020617",
               color: "white",
-              fontSize: "16px",
+              padding: "20px",
+              fontSize: "20px",
+              marginBottom: "25px",
             }}
           />
-
-          {/* BUTTONS */}
 
           <div
             style={{
               display: "grid",
-              gridTemplateColumns:
-                "repeat(auto-fit,minmax(220px,1fr))",
-              gap: "15px",
-              marginTop: "20px",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: "20px",
             }}
           >
+            <button
+              style={generatorBtn}
+              onClick={() => generateAI("blog")}
+            >
+              AI Blog Generator
+            </button>
 
-            <ToolButton
-              text="AI Blog Generator"
-              onClick={() =>
-                generateContent("blog")
-              }
-            />
+            <button
+              style={generatorBtn}
+              onClick={() => generateAI("ads")}
+            >
+              AI Ad Generator
+            </button>
 
-            <ToolButton
-              text="AI Ad Generator"
-              onClick={() =>
-                generateContent("ads")
-              }
-            />
+            <button
+              style={generatorBtn}
+              onClick={() => generateAI("email")}
+            >
+              AI Email Generator
+            </button>
 
-            <ToolButton
-              text="AI Email Generator"
-              onClick={() =>
-                generateContent("email")
-              }
-            />
+            <button
+              style={generatorBtn}
+              onClick={() => generateAI("script")}
+            >
+              AI Script Generator
+            </button>
 
-            <ToolButton
-              text="AI Script Generator"
-              onClick={() =>
-                generateContent("script")
-              }
-            />
+            <button
+              style={generatorBtn}
+              onClick={() => generateAI("product")}
+            >
+              AI Product Description
+            </button>
 
-            <ToolButton
-              text="AI Product Description"
-              onClick={() =>
-                generateContent("product")
-              }
-            />
-
-            <ToolButton
-              text="AI Landing Page Generator"
-              onClick={() =>
-                generateContent("landing")
-              }
-            />
+            <button
+              style={generatorBtn}
+              onClick={() => generateAI("landing")}
+            >
+              AI Landing Page Generator
+            </button>
           </div>
         </div>
 
-        {/* RESULT */}
+        {/* GENERATED CONTENT */}
 
-        <div
-          style={{
-            background: "#081028",
-            padding: "25px",
-            borderRadius: "20px",
-            marginTop: "30px",
-          }}
-        >
-
+        <div style={sectionStyle}>
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
-              alignItems: "center",
+              marginBottom: "20px",
             }}
           >
-            <h2>Generated Content</h2>
+            <h2 style={{ fontSize: "34px" }}>Generated Content</h2>
 
-            <div
-              style={{
-                display: "flex",
-                gap: "10px",
-              }}
-            >
-              <button
-                onClick={copyContent}
-                style={smallButton}
-              >
+            <div style={{ display: "flex", gap: "10px" }}>
+              <button style={smallBtn} onClick={copyContent}>
                 Copy
               </button>
 
-              <button
-                onClick={downloadContent}
-                style={smallButton}
-              >
+              <button style={smallBtn} onClick={downloadContent}>
                 Download
               </button>
             </div>
@@ -466,51 +314,41 @@ export default function Dashboard() {
           <div
             style={{
               background: "#020617",
-              borderRadius: "15px",
-              padding: "20px",
-              minHeight: "180px",
-              marginTop: "20px",
+              borderRadius: "20px",
+              padding: "30px",
+              minHeight: "300px",
               whiteSpace: "pre-wrap",
+              lineHeight: "1.8",
+              fontSize: "18px",
             }}
           >
             {loading
               ? "Generating AI Content..."
-              : result ||
-                "Your AI generated content will appear here."}
+              : generatedContent || "Your AI generated content will appear here."}
           </div>
         </div>
 
         {/* HISTORY */}
 
-        <div
-          style={{
-            background: "#081028",
-            padding: "25px",
-            borderRadius: "20px",
-            marginTop: "30px",
-          }}
-        >
+        <div style={sectionStyle}>
+          <h2 style={{ marginBottom: "25px", fontSize: "34px" }}>
+            Recent AI History
+          </h2>
 
-          <h2>Recent AI History</h2>
+          <div style={historyCard}>
+            Facebook Ads for Fitness Product
+          </div>
 
-          <div
-            style={{
-              marginTop: "20px",
-            }}
-          >
-            {history.map((item, index) => (
-              <div
-                key={index}
-                style={{
-                  background: "#020617",
-                  padding: "15px",
-                  borderRadius: "12px",
-                  marginBottom: "10px",
-                }}
-              >
-                {item}
-              </div>
-            ))}
+          <div style={historyCard}>
+            AI Blog about Digital Marketing
+          </div>
+
+          <div style={historyCard}>
+            Email Campaign for SaaS Product
+          </div>
+
+          <div style={historyCard}>
+            Landing Page for AI Startup
           </div>
         </div>
       </div>
@@ -518,87 +356,56 @@ export default function Dashboard() {
   );
 }
 
-// =====================================
-// COMPONENTS
-// =====================================
+/* =========================
+   STYLES
+========================= */
 
-function SidebarButton({
-  text,
-  onClick,
-}) {
-  return (
-    <button
-      onClick={onClick}
-      style={{
-        width: "100%",
-        textAlign: "left",
-        padding: "14px",
-        background: "transparent",
-        border: "none",
-        color: "white",
-        borderRadius: "10px",
-        marginBottom: "10px",
-        cursor: "pointer",
-      }}
-    >
-      {text}
-    </button>
-  );
-}
-
-function ToolButton({
-  text,
-  onClick,
-}) {
-  return (
-    <button
-      onClick={onClick}
-      style={{
-        padding: "16px",
-        border: "none",
-        borderRadius: "12px",
-        background: "#2563eb",
-        color: "white",
-        fontWeight: "bold",
-        cursor: "pointer",
-      }}
-    >
-      {text}
-    </button>
-  );
-}
-
-function Card({
-  title,
-  value,
-}) {
-  return (
-    <div
-      style={{
-        background: "#081028",
-        padding: "25px",
-        borderRadius: "20px",
-      }}
-    >
-      <p
-        style={{
-          color: "#94a3b8",
-          marginBottom: "10px",
-        }}
-      >
-        {title}
-      </p>
-
-      <h1>{value}</h1>
-    </div>
-  );
-}
-
-const smallButton = {
-  padding: "10px 18px",
+const sidebarBtn = {
+  background: "transparent",
   border: "none",
-  borderRadius: "10px",
-  background: "#2563eb",
   color: "white",
+  fontSize: "18px",
+  textAlign: "left",
   cursor: "pointer",
+};
+
+const cardStyle = {
+  background: "#081028",
+  padding: "30px",
+  borderRadius: "24px",
+};
+
+const sectionStyle = {
+  background: "#081028",
+  padding: "30px",
+  borderRadius: "24px",
+  marginBottom: "35px",
+};
+
+const generatorBtn = {
+  background: "#2563eb",
+  border: "none",
+  color: "white",
+  padding: "18px",
+  borderRadius: "16px",
+  cursor: "pointer",
+  fontSize: "18px",
+  fontWeight: "bold",
+};
+
+const smallBtn = {
+  background: "#2563eb",
+  border: "none",
+  color: "white",
+  padding: "14px 24px",
+  borderRadius: "12px",
+  cursor: "pointer",
+  fontWeight: "bold",
+};
+
+const historyCard = {
+  background: "#020617",
+  padding: "20px",
+  borderRadius: "16px",
+  marginBottom: "15px",
 };
