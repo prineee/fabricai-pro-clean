@@ -7,22 +7,22 @@ export function canUseFeature(
 
     PRO: [
       "blog",
+      "email",
       "ads",
-      "emails",
-      "landing",
+      "history",
+      "export",
     ],
 
     AGENCY: [
       "blog",
+      "email",
       "ads",
-      "emails",
-      "landing",
+      "history",
+      "export",
       "team",
-      "white-label",
+      "whitelabel",
     ],
   };
 
-  return permissions[plan]?.includes(
-    feature
-  );
+  return permissions[plan]?.includes(feature);
 }

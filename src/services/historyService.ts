@@ -23,9 +23,7 @@ export async function saveHistory(
         createdAt: serverTimestamp(),
       }
     );
-
-    console.log("AI history saved");
   } catch (error) {
-    console.log("History save error:", error);
+    console.log(error);
   }
 }
