@@ -3,6 +3,7 @@ import {
   useContext,
   useEffect,
   useState,
+  type ReactNode,
 } from "react";
 
 import {
@@ -12,42 +13,70 @@ import {
 
 import { auth } from "../firebase";
 
+
+
+type AuthContextType = {
+  user: User | null;
+  loading: boolean;
+};
+
+
+
 const AuthContext =
-  createContext<any>(null);
+  createContext<AuthContextType>({
+    user: null,
+    loading: true,
+  });
+
+
 
 export function AuthProvider({
   children,
-}: any) {
+}: {
+  children: ReactNode;
+}) {
+
   const [user, setUser] =
     useState<User | null>(null);
 
   const [loading, setLoading] =
     useState(true);
 
+
+
   useEffect(() => {
+
     const unsubscribe =
       onAuthStateChanged(
         auth,
         (currentUser) => {
+
           setUser(currentUser);
 
           setLoading(false);
+
         }
       );
 
     return () => unsubscribe();
+
   }, []);
+
+
 
   return (
     <AuthContext.Provider
       value={{
         user,
+        loading,
       }}
     >
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 }
+
+
 
 export function useAuth() {
   return useContext(AuthContext);
