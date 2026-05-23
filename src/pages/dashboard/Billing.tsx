@@ -96,7 +96,7 @@ export default function Billing() {
     const options = {
 
       key:
-        "YOUR_RAZORPAY_KEY_ID",
+        "rzp_live_SngV5d3BGmZJ1p",
 
       amount:
         "39900",
