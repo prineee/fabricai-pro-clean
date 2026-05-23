@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import DashboardLayout from "../../layouts/DashboardLayout";
 
+import { generateAI } from "../../services/aiService";
+
 export default function AdGenerator() {
 
   const [product, setProduct] =
@@ -13,47 +15,71 @@ export default function AdGenerator() {
   const [result, setResult] =
     useState("");
 
-  function generateAd() {
+  const [loading, setLoading] =
+    useState(false);
 
-    setResult(
-`🔥 ${product}
+  async function generateAd() {
 
-Perfect for ${audience}
+    if (!product || !audience)
+      return;
 
-✅ High Quality
-✅ Affordable
-✅ AI Powered
+    try {
 
-Buy Now & Transform Your Business Today.`
-    );
+      setLoading(true);
+
+      const prompt = `
+Create a high converting advertisement.
+
+Product:
+${product}
+
+Audience:
+${audience}
+
+Include:
+- headline
+- benefits
+- CTA
+`;
+
+      const output =
+        await generateAI(
+          prompt,
+          "advertisement"
+        );
+
+      setResult(output);
+
+    } catch (error) {
+
+      console.log(error);
+
+    } finally {
+
+      setLoading(false);
+    }
   }
 
   return (
     <DashboardLayout>
 
       <h1
-        style={{
-          fontSize: "42px",
-          marginBottom: "30px",
-        }}
+        style={titleStyle}
       >
         AI Ad Generator
       </h1>
 
       <div
-        style={{
-          background: "#0f172a",
-          padding: "30px",
-          borderRadius: "20px",
-          border: "1px solid #1e293b",
-        }}
+        style={cardStyle}
       >
 
         <input
           placeholder="Product Name"
           value={product}
           onChange={(e) =>
-            setProduct(e.target.value)
+            setProduct(
+              e.target.value
+            )
           }
           style={inputStyle}
         />
@@ -62,44 +88,35 @@ Buy Now & Transform Your Business Today.`
           placeholder="Target Audience"
           value={audience}
           onChange={(e) =>
-            setAudience(e.target.value)
+            setAudience(
+              e.target.value
+            )
           }
           style={inputStyle}
         />
 
         <button
           onClick={generateAd}
-          style={{
-            padding: "16px 30px",
-            background: "#2563eb",
-            color: "white",
-            border: "none",
-            borderRadius: "12px",
-            cursor: "pointer",
-            fontSize: "18px",
-          }}
+          style={buttonStyle}
         >
-          Generate Ad Copy
+          {
+            loading
+              ? "Generating..."
+              : "Generate Ad Copy"
+          }
         </button>
 
       </div>
 
       {
         result && (
+
           <div
-            style={{
-              marginTop: "30px",
-              background: "#0f172a",
-              padding: "35px",
-              borderRadius: "20px",
-              border:
-                "1px solid #1e293b",
-              whiteSpace: "pre-wrap",
-              lineHeight: "1.9",
-            }}
+            style={resultStyle}
           >
             {result}
           </div>
+
         )
       }
 
@@ -107,14 +124,49 @@ Buy Now & Transform Your Business Today.`
   );
 }
 
+const titleStyle = {
+  fontSize: "48px",
+  marginBottom: "30px",
+};
+
+const cardStyle = {
+  background: "#0f172a",
+  padding: "35px",
+  borderRadius: "20px",
+  border: "1px solid #1e293b",
+};
+
+const resultStyle = {
+  marginTop: "30px",
+  background: "#0f172a",
+  padding: "35px",
+  borderRadius: "20px",
+  border: "1px solid #1e293b",
+  whiteSpace: "pre-wrap" as const,
+  lineHeight: "1.9",
+};
+
 const inputStyle = {
   width: "100%",
   padding: "18px",
   marginBottom: "20px",
   borderRadius: "12px",
   border: "1px solid #334155",
-  background: "#ffffff",
+  backgroundColor: "#ffffff",
   color: "#000000",
+  WebkitTextFillColor:
+    "#000000",
+  caretColor: "#000000",
   fontSize: "16px",
   outline: "none",
+};
+
+const buttonStyle = {
+  padding: "16px 30px",
+  background: "#2563eb",
+  color: "white",
+  border: "none",
+  borderRadius: "12px",
+  cursor: "pointer",
+  fontSize: "18px",
 };

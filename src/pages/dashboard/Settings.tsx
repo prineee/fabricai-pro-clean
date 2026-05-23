@@ -13,55 +13,63 @@ export default function Settings() {
   const [password, setPassword] =
     useState("");
 
+  function saveSettings() {
+
+    alert(
+      "Settings saved successfully"
+    );
+  }
+
   return (
     <DashboardLayout>
 
       <h1
-        style={{
-          fontSize: "42px",
-          marginBottom: "30px",
-        }}
+        style={titleStyle}
       >
         Account Settings
       </h1>
 
       <div
-        style={{
-          background: "#0f172a",
-          padding: "35px",
-          borderRadius: "20px",
-          border: "1px solid #1e293b",
-          maxWidth: "700px",
-        }}
+        style={cardStyle}
       >
 
-        <label>
+        <label
+          style={labelStyle}
+        >
           Full Name
         </label>
 
         <input
           value={name}
           onChange={(e) =>
-            setName(e.target.value)
+            setName(
+              e.target.value
+            )
           }
-          placeholder="Name"
+          placeholder="Full Name"
           style={inputStyle}
         />
 
-        <label>
+        <label
+          style={labelStyle}
+        >
           Email Address
         </label>
 
         <input
           value={email}
           onChange={(e) =>
-            setEmail(e.target.value)
+            setEmail(
+              e.target.value
+            )
           }
-          placeholder="Email"
+          placeholder="Email Address"
           style={inputStyle}
         />
 
-        <label>
+        <label
+          style={labelStyle}
+        >
           New Password
         </label>
 
@@ -69,23 +77,17 @@ export default function Settings() {
           type="password"
           value={password}
           onChange={(e) =>
-            setPassword(e.target.value)
+            setPassword(
+              e.target.value
+            )
           }
           placeholder="New Password"
           style={inputStyle}
         />
 
         <button
-          style={{
-            marginTop: "20px",
-            padding: "16px 30px",
-            borderRadius: "12px",
-            border: "none",
-            background: "#2563eb",
-            color: "white",
-            cursor: "pointer",
-            fontSize: "18px",
-          }}
+          onClick={saveSettings}
+          style={buttonStyle}
         >
           Save Changes
         </button>
@@ -96,15 +98,47 @@ export default function Settings() {
   );
 }
 
+const titleStyle = {
+  fontSize: "48px",
+  marginBottom: "30px",
+};
+
+const cardStyle = {
+  background: "#0f172a",
+  padding: "35px",
+  borderRadius: "20px",
+  border: "1px solid #1e293b",
+  maxWidth: "700px",
+};
+
+const labelStyle = {
+  display: "block",
+  marginBottom: "10px",
+  color: "#cbd5e1",
+  fontSize: "16px",
+};
+
 const inputStyle = {
   width: "100%",
   padding: "18px",
-  marginTop: "10px",
   marginBottom: "25px",
   borderRadius: "12px",
   border: "1px solid #334155",
-  background: "#ffffff",
+  backgroundColor: "#ffffff",
   color: "#000000",
+  WebkitTextFillColor:
+    "#000000",
+  caretColor: "#000000",
   fontSize: "16px",
   outline: "none",
+};
+
+const buttonStyle = {
+  padding: "16px 30px",
+  background: "#2563eb",
+  color: "white",
+  border: "none",
+  borderRadius: "12px",
+  cursor: "pointer",
+  fontSize: "18px",
 };

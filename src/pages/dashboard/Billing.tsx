@@ -1,5 +1,51 @@
 import DashboardLayout from "../../layouts/DashboardLayout";
 
+const plans = [
+
+  {
+    title: "FREE",
+    price: "₹0",
+    features: [
+      "5 AI generations/day",
+      "Basic AI Tools",
+      "Community Support",
+    ],
+    button: "Current Plan",
+    link: "",
+  },
+
+  {
+    title: "PRO",
+    price: "₹150/month",
+    features: [
+      "Unlimited AI generations",
+      "Premium AI Models",
+      "Export Features",
+      "Priority Support",
+    ],
+    button: "Upgrade To PRO",
+
+    link:
+      "https://rzp.io/l/YOUR_PRO_LINK",
+  },
+
+  {
+    title: "AGENCY",
+    price: "₹399/month",
+    features: [
+      "Everything in PRO",
+      "Commercial License",
+      "Client Management",
+      "Agency Dashboard",
+    ],
+    button:
+      "Upgrade To AGENCY",
+
+    link:
+      "https://rzp.io/l/YOUR_AGENCY_LINK",
+  },
+];
+
 export default function Billing() {
 
   return (
@@ -7,11 +53,11 @@ export default function Billing() {
 
       <h1
         style={{
-          fontSize: "42px",
-          marginBottom: "30px",
+          fontSize: "48px",
+          marginBottom: "35px",
         }}
       >
-        Billing Plans
+        Billing & Plans
       </h1>
 
       <div
@@ -23,114 +69,123 @@ export default function Billing() {
         }}
       >
 
-        <PlanCard
-          title="FREE"
-          price="₹0"
-          features={[
-            "5 AI generations/day",
-            "Basic AI tools",
-          ]}
-        />
+        {
+          plans.map((plan) => (
 
-        <PlanCard
-          title="PRO"
-          price="₹150/month"
-          features={[
-            "Unlimited AI",
-            "Premium tools",
-            "Exports",
-          ]}
-          link="https://rzp.io/l/demo"
-        />
+            <div
+              key={plan.title}
+              style={{
+                background: "#0f172a",
+                padding: "35px",
+                borderRadius: "20px",
+                border:
+                  "1px solid #1e293b",
+              }}
+            >
 
-        <PlanCard
-          title="AGENCY"
-          price="₹399/month"
-          features={[
-            "Everything in PRO",
-            "Commercial license",
-            "Client access",
-          ]}
-          link="https://rzp.io/l/demo"
-        />
+              <h2
+                style={{
+                  fontSize: "30px",
+                }}
+              >
+                {plan.title}
+              </h2>
+
+              <h1
+                style={{
+                  fontSize: "44px",
+                  margin: "20px 0",
+                  color: "#3b82f6",
+                }}
+              >
+                {plan.price}
+              </h1>
+
+              <div
+                style={{
+                  marginBottom: "30px",
+                }}
+              >
+
+                {
+                  plan.features.map(
+                    (feature) => (
+
+                      <p
+                        key={feature}
+                        style={{
+                          marginBottom:
+                            "14px",
+                          color:
+                            "#cbd5e1",
+                        }}
+                      >
+                        ✅ {feature}
+                      </p>
+                    )
+                  )
+                }
+
+              </div>
+
+              {
+                plan.link ? (
+
+                  <a
+                    href={plan.link}
+                    target="_blank"
+                  >
+
+                    <button
+                      style={{
+                        width: "100%",
+                        padding: "16px",
+                        border: "none",
+                        borderRadius:
+                          "12px",
+                        background:
+                          "#2563eb",
+                        color: "white",
+                        fontSize:
+                          "18px",
+                        cursor:
+                          "pointer",
+                      }}
+                    >
+                      {plan.button}
+                    </button>
+
+                  </a>
+
+                ) : (
+
+                  <button
+                    style={{
+                      width: "100%",
+                      padding: "16px",
+                      border: "none",
+                      borderRadius:
+                        "12px",
+                      background:
+                        "#334155",
+                      color: "white",
+                      fontSize:
+                        "18px",
+                    }}
+                  >
+                    {plan.button}
+                  </button>
+
+                )
+              }
+
+            </div>
+
+          ))
+        }
 
       </div>
 
     </DashboardLayout>
-  );
-}
-
-function PlanCard({
-  title,
-  price,
-  features,
-  link,
-}: any) {
-
-  return (
-    <div
-      style={{
-        background: "#0f172a",
-        padding: "35px",
-        borderRadius: "20px",
-        border: "1px solid #1e293b",
-      }}
-    >
-
-      <h2>{title}</h2>
-
-      <h1
-        style={{
-          margin: "20px 0",
-          fontSize: "42px",
-          color: "#3b82f6",
-        }}
-      >
-        {price}
-      </h1>
-
-      {
-        features.map(
-          (feature: string) => (
-            <p
-              key={feature}
-              style={{
-                marginBottom: "15px",
-              }}
-            >
-              ✅ {feature}
-            </p>
-          )
-        )
-      }
-
-      {
-        link && (
-          <a
-            href={link}
-            target="_blank"
-          >
-
-            <button
-              style={{
-                marginTop: "30px",
-                width: "100%",
-                padding: "16px",
-                border: "none",
-                borderRadius: "12px",
-                background: "#2563eb",
-                color: "white",
-                fontSize: "18px",
-                cursor: "pointer",
-              }}
-            >
-              Upgrade
-            </button>
-
-          </a>
-        )
-      }
-
-    </div>
   );
 }

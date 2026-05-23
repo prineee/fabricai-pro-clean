@@ -1,8 +1,6 @@
-const API_URL =
-  "https://api.groq.com/openai/v1/chat/completions";
-
 const API_KEY =
-  import.meta.env.VITE_GROQ_API_KEY;
+  import.meta.env
+    .VITE_GROQ_API_KEY;
 
 export async function generateAI(
   prompt: string,
@@ -11,48 +9,55 @@ export async function generateAI(
 
   try {
 
-    const response = await fetch(
-      API_URL,
-      {
-        method: "POST",
+    const response =
+      await fetch(
+        "https://api.groq.com/openai/v1/chat/completions",
+        {
+          method: "POST",
 
-        headers: {
-          "Content-Type":
-            "application/json",
+          headers: {
+            "Content-Type":
+              "application/json",
 
-          Authorization:
-            `Bearer ${API_KEY}`,
-        },
+            Authorization:
+              `Bearer ${API_KEY}`,
+          },
 
-        body: JSON.stringify({
-          model:
-            "llama3-70b-8192",
+          body: JSON.stringify({
 
-          messages: [
-            {
-              role: "system",
+            model:
+              "llama3-70b-8192",
 
-              content:
-                `You are an expert ${type} AI assistant.`,
-            },
+            messages: [
 
-            {
-              role: "user",
-              content: prompt,
-            },
-          ],
+              {
+                role: "system",
 
-          temperature: 0.7,
-        }),
-      }
-    );
+                content:
+                  `You are a professional ${type} AI assistant.`,
+              },
+
+              {
+                role: "user",
+
+                content: prompt,
+              },
+            ],
+
+            temperature: 0.7,
+          }),
+        }
+      );
 
     const data =
       await response.json();
 
+    console.log(data);
+
     return (
       data?.choices?.[0]
         ?.message?.content ||
+
       "No AI response"
     );
 
