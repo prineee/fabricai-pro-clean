@@ -6,24 +6,28 @@ import { generateAI } from "../../services/aiService";
 
 export default function BlogGenerator() {
 
-  const [topic, setTopic] = useState("");
+  const [prompt, setPrompt] =
+    useState("");
 
-  const [result, setResult] = useState("");
+  const [result, setResult] =
+    useState("");
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] =
+    useState(false);
 
-  async function generateBlog() {
+  async function handleGenerate() {
 
-    if (!topic) return;
+    if (!prompt) return;
 
     try {
 
       setLoading(true);
 
-      const output = await generateAI(
-        topic,
-        "blog"
-      );
+      const output =
+        await generateAI(
+          prompt,
+          "blog writer"
+        );
 
       setResult(output);
 
@@ -34,95 +38,32 @@ export default function BlogGenerator() {
     } finally {
 
       setLoading(false);
-
     }
-
-  }
-
-  function copyText() {
-
-    navigator.clipboard.writeText(result);
-
-    alert("Copied");
-
-  }
-
-  function downloadTxt() {
-
-    const blob = new Blob(
-      [result],
-      {
-        type: "text/plain",
-      }
-    );
-
-    const url =
-      URL.createObjectURL(blob);
-
-    const a =
-      document.createElement("a");
-
-    a.href = url;
-
-    a.download =
-      "fabricai-blog.txt";
-
-    a.click();
-
   }
 
   return (
     <DashboardLayout>
 
-      <h1
-        style={{
-          fontSize: "42px",
-          marginBottom: "30px",
-        }}
-      >
+      <h1 style={titleStyle}>
         AI Blog Generator
       </h1>
 
-      <div
-        style={{
-          background: "#0f172a",
-          padding: "30px",
-          borderRadius: "20px",
-          border: "1px solid #1e293b",
-        }}
-      >
+      <div style={cardStyle}>
 
         <textarea
-          placeholder="Enter blog topic"
-          value={topic}
+          placeholder="Enter blog topic..."
+          value={prompt}
           onChange={(e) =>
-            setTopic(e.target.value)
+            setPrompt(
+              e.target.value
+            )
           }
-          style={{
-            width: "100%",
-            minHeight: "180px",
-            padding: "20px",
-            borderRadius: "12px",
-            background: "#ffffff",
-            color: "#000000",
-            border: "1px solid #334155",
-            fontSize: "16px",
-            outline: "none",
-          }}
+          style={inputStyle}
         />
 
         <button
-          onClick={generateBlog}
-          style={{
-            marginTop: "20px",
-            padding: "16px 30px",
-            borderRadius: "12px",
-            border: "none",
-            background: "#2563eb",
-            color: "white",
-            fontSize: "18px",
-            cursor: "pointer",
-          }}
+          onClick={handleGenerate}
+          style={buttonStyle}
         >
           {
             loading
@@ -133,60 +74,58 @@ export default function BlogGenerator() {
 
       </div>
 
-      {
-        result && (
-          <div
-            style={{
-              marginTop: "30px",
-              background: "#0f172a",
-              padding: "35px",
-              borderRadius: "20px",
-              border: "1px solid #1e293b",
-              whiteSpace: "pre-wrap",
-              lineHeight: "1.9",
-            }}
-          >
-
-            <div
-              style={{
-                display: "flex",
-                gap: "15px",
-                marginBottom: "25px",
-              }}
-            >
-
-              <button
-                onClick={copyText}
-                style={toolButton}
-              >
-                Copy
-              </button>
-
-              <button
-                onClick={downloadTxt}
-                style={toolButton}
-              >
-                Download TXT
-              </button>
-
-            </div>
-
-            {result}
-
-          </div>
-        )
-      }
+      <div style={resultStyle}>
+        {result}
+      </div>
 
     </DashboardLayout>
   );
-
 }
 
-const toolButton = {
-  padding: "12px 20px",
-  border: "none",
-  borderRadius: "10px",
+const titleStyle = {
+  fontSize: "48px",
+  marginBottom: "30px",
+};
+
+const cardStyle = {
+  background: "#0f172a",
+  padding: "35px",
+  borderRadius: "20px",
+  border: "1px solid #1e293b",
+};
+
+const resultStyle = {
+  marginTop: "30px",
+  background: "#0f172a",
+  padding: "35px",
+  borderRadius: "20px",
+  border: "1px solid #1e293b",
+  whiteSpace: "pre-wrap" as const,
+  lineHeight: "1.8",
+};
+
+const inputStyle = {
+  width: "100%",
+  minHeight: "220px",
+  padding: "18px",
+  marginBottom: "20px",
+  borderRadius: "12px",
+  border: "1px solid #334155",
+  backgroundColor: "#ffffff",
+  color: "#000000",
+  WebkitTextFillColor:
+    "#000000",
+  caretColor: "#000000",
+  fontSize: "16px",
+  outline: "none",
+};
+
+const buttonStyle = {
+  padding: "16px 30px",
   background: "#2563eb",
   color: "white",
+  border: "none",
+  borderRadius: "12px",
   cursor: "pointer",
+  fontSize: "18px",
 };

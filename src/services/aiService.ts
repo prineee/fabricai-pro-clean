@@ -9,6 +9,15 @@ export async function generateAI(
 
   try {
 
+    if (!API_KEY) {
+
+      console.error(
+        "Missing Groq API Key"
+      );
+
+      return "Groq API key missing";
+    }
+
     const response =
       await fetch(
         "https://api.groq.com/openai/v1/chat/completions",
@@ -45,6 +54,7 @@ export async function generateAI(
             ],
 
             temperature: 0.7,
+            max_tokens: 1200,
           }),
         }
       );
@@ -52,7 +62,18 @@ export async function generateAI(
     const data =
       await response.json();
 
-    console.log(data);
+    console.log(
+      "GROQ RESPONSE:",
+      data
+    );
+
+    if (data.error) {
+
+      return (
+        "Groq Error: " +
+        data.error.message
+      );
+    }
 
     return (
       data?.choices?.[0]
