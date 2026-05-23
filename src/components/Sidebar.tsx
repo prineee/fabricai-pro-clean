@@ -1,54 +1,52 @@
 import { Link } from "react-router-dom";
 
-const Sidebar = () => {
+export default function Sidebar() {
+  const menu = [
+    "overview",
+    "blog-generator",
+    "ad-generator",
+    "email-generator",
+    "landing-generator",
+    "history",
+    "billing",
+    "settings",
+  ];
+
   return (
-    <div className="w-[260px] min-h-screen bg-zinc-900 p-6 border-r border-zinc-800">
-      
-      <h1 className="text-2xl font-bold text-white mb-10">
-        FabricAI Pro
+    <div
+      style={{
+        width: "260px",
+        background: "#081028",
+        padding: "30px 20px",
+        borderRight: "1px solid #1e293b",
+      }}
+    >
+      <h1
+        style={{
+          fontSize: "34px",
+          marginBottom: "40px",
+        }}
+      >
+        FabricAI
       </h1>
 
-      <div className="flex flex-col gap-5 text-lg">
-
+      {menu.map((item) => (
         <Link
-          to="/dashboard"
-          className="text-zinc-300 hover:text-white transition"
+          key={item}
+          to={`/dashboard/${item}`}
+          style={{
+            display: "block",
+            padding: "15px",
+            marginBottom: "10px",
+            borderRadius: "12px",
+            textDecoration: "none",
+            color: "white",
+            background: "#0f172a",
+          }}
         >
-          Dashboard
+          {item.replace("-", " ")}
         </Link>
-
-        <Link
-          to="/ai"
-          className="text-zinc-300 hover:text-white transition"
-        >
-          AI Chat
-        </Link>
-
-        <Link
-          to="/billing"
-          className="text-zinc-300 hover:text-white transition"
-        >
-          Billing
-        </Link>
-
-        <Link
-          to="/analytics"
-          className="text-zinc-300 hover:text-white transition"
-        >
-          Analytics
-        </Link>
-
-        <Link
-          to="/admin"
-          className="text-zinc-300 hover:text-white transition"
-        >
-          Admin
-        </Link>
-
-      </div>
-
+      ))}
     </div>
   );
-};
-
-export default Sidebar;
+}
