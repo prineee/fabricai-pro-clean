@@ -1,27 +1,36 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 import Home from "./pages/Home";
-import Register from "./pages/Register";
 import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
-import Pricing from "./pages/Pricing";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import RefundPolicy from "./pages/RefundPolicy";
-import Terms from "./pages/Terms";
+import Register from "./pages/Register";
+
+import Overview from "./pages/dashboard/Overview";
+import BlogGenerator from "./pages/dashboard/BlogGenerator";
+import AdGenerator from "./pages/dashboard/AdGenerator";
+import EmailGenerator from "./pages/dashboard/EmailGenerator";
+import History from "./pages/dashboard/History";
+import Billing from "./pages/dashboard/Billing";
+import Settings from "./pages/dashboard/Settings";
+
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AffiliateDashboard from "./pages/affiliate/AffiliateDashboard";
+
+import ProtectedRoute from "./components/ProtectedRoute";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
 
+        {/* PUBLIC */}
+
         <Route
           path="/"
           element={<Home />}
-        />
-
-        <Route
-          path="/register"
-          element={<Register />}
         />
 
         <Route
@@ -30,28 +39,95 @@ export default function App() {
         />
 
         <Route
+          path="/register"
+          element={<Register />}
+        />
+
+        {/* DASHBOARD */}
+
+        <Route
           path="/dashboard"
-          element={<Dashboard />}
+          element={
+            <ProtectedRoute>
+              <Overview />
+            </ProtectedRoute>
+          }
         />
 
         <Route
-          path="/pricing"
-          element={<Pricing />}
+          path="/dashboard/blog"
+          element={
+            <ProtectedRoute>
+              <BlogGenerator />
+            </ProtectedRoute>
+          }
         />
 
         <Route
-          path="/privacy-policy"
-          element={<PrivacyPolicy />}
+          path="/dashboard/ad"
+          element={
+            <ProtectedRoute>
+              <AdGenerator />
+            </ProtectedRoute>
+          }
         />
 
         <Route
-          path="/refund-policy"
-          element={<RefundPolicy />}
+          path="/dashboard/email"
+          element={
+            <ProtectedRoute>
+              <EmailGenerator />
+            </ProtectedRoute>
+          }
         />
 
         <Route
-          path="/terms"
-          element={<Terms />}
+          path="/dashboard/history"
+          element={
+            <ProtectedRoute>
+              <History />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/billing"
+          element={
+            <ProtectedRoute>
+              <Billing />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/settings"
+          element={
+            <ProtectedRoute>
+              <Settings />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* ADMIN */}
+
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* AFFILIATE */}
+
+        <Route
+          path="/affiliate"
+          element={
+            <ProtectedRoute>
+              <AffiliateDashboard />
+            </ProtectedRoute>
+          }
         />
 
       </Routes>
