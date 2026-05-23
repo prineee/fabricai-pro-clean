@@ -8,7 +8,7 @@ import {
 
 import { auth } from "../firebase";
 
-export default function Signup() {
+export default function Register() {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState<string>("");

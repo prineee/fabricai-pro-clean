@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Signup from "./pages/Signup";
+import Register from "./pages/Register";
 
 function Home() {
   return (
@@ -31,8 +31,8 @@ export default function App() {
         />
 
         <Route
-          path="/signup"
-          element={<Signup />}
+          path="/register"
+          element={<Register />}
         />
       </Routes>
     </BrowserRouter>
