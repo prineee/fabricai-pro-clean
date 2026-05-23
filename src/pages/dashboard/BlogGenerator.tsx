@@ -103,10 +103,11 @@ export default function BlogGenerator() {
             minHeight: "180px",
             padding: "20px",
             borderRadius: "12px",
-            background: "#020617",
-            color: "white",
+            background: "#ffffff",
+            color: "#000000",
             border: "1px solid #334155",
             fontSize: "16px",
+            outline: "none",
           }}
         />
 

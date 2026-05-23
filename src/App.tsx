@@ -2,26 +2,24 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  Navigate,
 } from "react-router-dom";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Pricing from "./pages/Pricing";
+
+import ProtectedRoute from "./components/ProtectedRoute";
 
 import Overview from "./pages/dashboard/Overview";
 import BlogGenerator from "./pages/dashboard/BlogGenerator";
 import EmailGenerator from "./pages/dashboard/EmailGenerator";
 import AdGenerator from "./pages/dashboard/AdGenerator";
-import History from "./pages/dashboard/History";
 import Billing from "./pages/dashboard/Billing";
+import History from "./pages/dashboard/History";
 import Settings from "./pages/dashboard/Settings";
 
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AffiliateDashboard from "./pages/affiliate/AffiliateDashboard";
-
-import ProtectedRoute from "./components/ProtectedRoute";
 
 export default function App() {
   return (
@@ -30,13 +28,20 @@ export default function App() {
 
         {/* PUBLIC ROUTES */}
 
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={<Home />}
+        />
 
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={<Login />}
+        />
 
-        <Route path="/register" element={<Register />} />
-
-        <Route path="/pricing" element={<Pricing />} />
+        <Route
+          path="/register"
+          element={<Register />}
+        />
 
 
 
@@ -79,19 +84,19 @@ export default function App() {
         />
 
         <Route
-          path="/dashboard/history"
+          path="/dashboard/billing"
           element={
             <ProtectedRoute>
-              <History />
+              <Billing />
             </ProtectedRoute>
           }
         />
 
         <Route
-          path="/dashboard/billing"
+          path="/dashboard/history"
           element={
             <ProtectedRoute>
-              <Billing />
+              <History />
             </ProtectedRoute>
           }
         />
@@ -129,15 +134,6 @@ export default function App() {
               <AffiliateDashboard />
             </ProtectedRoute>
           }
-        />
-
-
-
-        {/* FALLBACK */}
-
-        <Route
-          path="*"
-          element={<Navigate to="/" />}
         />
 
       </Routes>

@@ -1,41 +1,22 @@
-import {
-  Navigate,
-} from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
-import type {
-  ReactNode,
-} from "react";
-
-import {
-  useAuth,
-} from "../context/AuthContext";
-
-
-
-type ProtectedRouteProps = {
-  children: ReactNode;
-};
-
-
+import { useAuth } from "../context/AuthContext";
 
 export default function ProtectedRoute({
   children,
-}: ProtectedRouteProps) {
+}: any) {
 
-  const {
-    user,
-    loading,
-  } = useAuth();
-
-
+  const { user, loading } =
+    useAuth();
 
   if (loading) {
+
     return (
       <div
         style={{
+          minHeight: "100vh",
           background: "#020617",
           color: "white",
-          height: "100vh",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -45,15 +26,19 @@ export default function ProtectedRoute({
         Loading...
       </div>
     );
+
   }
-
-
 
   if (!user) {
-    return <Navigate to="/login" />;
+
+    return (
+      <Navigate
+        to="/login"
+        replace
+      />
+    );
+
   }
 
-
-
-  return <>{children}</>;
+  return children;
 }

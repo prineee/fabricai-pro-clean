@@ -2,50 +2,42 @@ import { useState } from "react";
 
 import DashboardLayout from "../../layouts/DashboardLayout";
 
-
+import { generateAI } from "../../services/aiService";
 
 export default function EmailGenerator() {
 
-  const [subject, setSubject] = useState("");
-
-  const [purpose, setPurpose] = useState("");
+  const [prompt, setPrompt] = useState("");
 
   const [result, setResult] = useState("");
 
   const [loading, setLoading] = useState(false);
 
-
-
   async function generateEmail() {
 
-    setLoading(true);
+    if (!prompt) return;
 
+    try {
 
+      setLoading(true);
 
-    setTimeout(() => {
+      const output = await generateAI(
+        prompt,
+        "email"
+      );
 
-      setResult(`
-Subject: ${subject}
+      setResult(output);
 
-Hello,
+    } catch (error) {
 
-We are excited to introduce our latest AI-powered solution designed to help businesses automate operations and improve productivity.
+      console.log(error);
 
-${purpose}
-
-Thank you for your time.
-
-Best Regards,
-FabricAI Team
-      `);
+    } finally {
 
       setLoading(false);
 
-    }, 1500);
+    }
 
   }
-
-
 
   return (
     <DashboardLayout>
@@ -59,8 +51,6 @@ FabricAI Team
         AI Email Generator
       </h1>
 
-
-
       <div
         style={{
           background: "#0f172a",
@@ -70,35 +60,37 @@ FabricAI Team
         }}
       >
 
-        <input
-          type="text"
-          placeholder="Email Subject"
-          value={subject}
-          onChange={(e) =>
-            setSubject(e.target.value)
-          }
-          style={inputStyle}
-        />
-
-
-
         <textarea
-          placeholder="Email Purpose"
-          value={purpose}
+          placeholder="Write email prompt"
+          value={prompt}
           onChange={(e) =>
-            setPurpose(e.target.value)
+            setPrompt(e.target.value)
           }
           style={{
-            ...inputStyle,
+            width: "100%",
             minHeight: "180px",
+            padding: "20px",
+            borderRadius: "12px",
+            background: "#ffffff",
+            color: "#000000",
+            border: "1px solid #334155",
+            fontSize: "16px",
+            outline: "none",
           }}
         />
 
-
-
         <button
           onClick={generateEmail}
-          style={buttonStyle}
+          style={{
+            marginTop: "20px",
+            padding: "16px 30px",
+            borderRadius: "12px",
+            border: "none",
+            background: "#2563eb",
+            color: "white",
+            fontSize: "18px",
+            cursor: "pointer",
+          }}
         >
           {
             loading
@@ -109,19 +101,17 @@ FabricAI Team
 
       </div>
 
-
-
       {
         result && (
           <div
             style={{
-              background: "#0f172a",
-              padding: "40px",
-              borderRadius: "20px",
               marginTop: "30px",
+              background: "#0f172a",
+              padding: "35px",
+              borderRadius: "20px",
+              border: "1px solid #1e293b",
               whiteSpace: "pre-wrap",
               lineHeight: "1.9",
-              border: "1px solid #1e293b",
             }}
           >
             {result}
@@ -131,29 +121,5 @@ FabricAI Team
 
     </DashboardLayout>
   );
+
 }
-
-
-
-const inputStyle = {
-  width: "100%",
-  padding: "18px",
-  marginBottom: "20px",
-  borderRadius: "12px",
-  border: "1px solid #334155",
-  background: "#020617",
-  color: "white",
-  fontSize: "16px",
-};
-
-
-
-const buttonStyle = {
-  background: "#2563eb",
-  color: "white",
-  border: "none",
-  padding: "18px 30px",
-  borderRadius: "12px",
-  fontSize: "18px",
-  cursor: "pointer",
-};

@@ -1,8 +1,30 @@
 import DashboardLayout from "../../layouts/DashboardLayout";
 
 export default function Billing() {
+
+  function upgradePlan(
+    plan: string
+  ) {
+
+    if (plan === "PRO") {
+
+      window.location.href =
+        "https://rzp.io/l/YOUR_PRO_LINK";
+
+    }
+
+    if (plan === "AGENCY") {
+
+      window.location.href =
+        "https://rzp.io/l/YOUR_AGENCY_LINK";
+
+    }
+
+  }
+
   return (
     <DashboardLayout>
+
       <h1
         style={{
           fontSize: "42px",
@@ -20,6 +42,7 @@ export default function Billing() {
           gap: "25px",
         }}
       >
+
         <PlanCard
           title="FREE"
           price="₹0"
@@ -41,6 +64,9 @@ export default function Billing() {
             "History access",
           ]}
           button="Upgrade"
+          onClick={() =>
+            upgradePlan("PRO")
+          }
         />
 
         <PlanCard
@@ -53,8 +79,13 @@ export default function Billing() {
             "Commercial rights",
           ]}
           button="Upgrade"
+          onClick={() =>
+            upgradePlan("AGENCY")
+          }
         />
+
       </div>
+
     </DashboardLayout>
   );
 }
@@ -64,7 +95,9 @@ function PlanCard({
   price,
   features,
   button,
+  onClick,
 }: any) {
+
   return (
     <div
       style={{
@@ -74,6 +107,7 @@ function PlanCard({
         border: "1px solid #1e293b",
       }}
     >
+
       <h2>{title}</h2>
 
       <h1
@@ -86,14 +120,21 @@ function PlanCard({
       </h1>
 
       <div>
-        {features.map((feature: string) => (
-          <p key={feature}>
-            ✓ {feature}
-          </p>
-        ))}
+
+        {
+          features.map(
+            (feature: string) => (
+              <p key={feature}>
+                ✓ {feature}
+              </p>
+            )
+          )
+        }
+
       </div>
 
       <button
+        onClick={onClick}
         style={{
           marginTop: "30px",
           width: "100%",
@@ -108,6 +149,7 @@ function PlanCard({
       >
         {button}
       </button>
+
     </div>
   );
 }
