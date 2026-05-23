@@ -1,35 +1,44 @@
+import type {
+  ReactNode,
+} from "react";
+
 import Sidebar from "../components/Sidebar";
-import Topbar from "../components/Topbar";
+
+
+
+type DashboardLayoutProps = {
+  children: ReactNode;
+};
+
+
 
 export default function DashboardLayout({
   children,
-}: any) {
+}: DashboardLayoutProps) {
+
   return (
     <div
       style={{
         display: "flex",
-        minHeight: "100vh",
         background: "#020617",
         color: "white",
+        minHeight: "100vh",
       }}
     >
+
       <Sidebar />
+
+
 
       <div
         style={{
           flex: 1,
+          padding: "40px",
         }}
       >
-        <Topbar />
-
-        <div
-          style={{
-            padding: "30px",
-          }}
-        >
-          {children}
-        </div>
+        {children}
       </div>
+
     </div>
   );
 }

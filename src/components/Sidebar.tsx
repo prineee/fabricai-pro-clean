@@ -1,52 +1,109 @@
-import { Link } from "react-router-dom";
+import {
+  NavLink,
+} from "react-router-dom";
+
+
+
+const linkStyle = {
+  display: "block",
+  padding: "14px 18px",
+  borderRadius: "10px",
+  color: "#cbd5e1",
+  textDecoration: "none",
+  marginBottom: "10px",
+  fontSize: "16px",
+  fontWeight: 500,
+};
+
+
 
 export default function Sidebar() {
-  const menu = [
-    "overview",
-    "blog-generator",
-    "ad-generator",
-    "email-generator",
-    "landing-generator",
-    "history",
-    "billing",
-    "settings",
-  ];
 
   return (
     <div
       style={{
         width: "260px",
-        background: "#081028",
+        background: "#0f172a",
+        minHeight: "100vh",
         padding: "30px 20px",
         borderRight: "1px solid #1e293b",
       }}
     >
+
       <h1
         style={{
-          fontSize: "34px",
+          color: "white",
           marginBottom: "40px",
+          fontSize: "28px",
+          fontWeight: "bold",
         }}
       >
         FabricAI
       </h1>
 
-      {menu.map((item) => (
-        <Link
-          key={item}
-          to={`/dashboard/${item}`}
-          style={{
-            display: "block",
-            padding: "15px",
-            marginBottom: "10px",
-            borderRadius: "12px",
-            textDecoration: "none",
-            color: "white",
-            background: "#0f172a",
-          }}
-        >
-          {item.replace("-", " ")}
-        </Link>
-      ))}
+
+
+      <NavLink
+        to="/dashboard"
+        style={linkStyle}
+      >
+        Dashboard
+      </NavLink>
+
+
+
+      <NavLink
+        to="/dashboard/blog"
+        style={linkStyle}
+      >
+        Blog Generator
+      </NavLink>
+
+
+
+      <NavLink
+        to="/dashboard/email"
+        style={linkStyle}
+      >
+        Email Generator
+      </NavLink>
+
+
+
+      <NavLink
+        to="/dashboard/ads"
+        style={linkStyle}
+      >
+        Ad Generator
+      </NavLink>
+
+
+
+      <NavLink
+        to="/dashboard/history"
+        style={linkStyle}
+      >
+        History
+      </NavLink>
+
+
+
+      <NavLink
+        to="/dashboard/billing"
+        style={linkStyle}
+      >
+        Billing
+      </NavLink>
+
+
+
+      <NavLink
+        to="/dashboard/settings"
+        style={linkStyle}
+      >
+        Settings
+      </NavLink>
+
     </div>
   );
 }
