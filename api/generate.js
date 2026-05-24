@@ -1,5 +1,6 @@
 export default async function handler(req, res) {
 
+  // ALLOW POST ONLY
   if (req.method !== "POST") {
     return res.status(405).json({
       error: "Method not allowed",
@@ -20,27 +21,37 @@ export default async function handler(req, res) {
       "https://api.groq.com/openai/v1/chat/completions",
       {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+
+          Authorization:
+            `Bearer ${process.env.GROQ_API_KEY}`,
         },
+
         body: JSON.stringify({
-          model: "llama3-8b-8192",
+          model: "llama3-70b-8192",
+
           messages: [
             {
               role: "user",
               content: prompt,
             },
           ],
+
+          temperature: 0.7,
         }),
       }
     );
 
     const data = await response.json();
 
+    console.log(data);
+
     return res.status(200).json({
-      result:
-        data?.choices?.[0]?.message?.content ||
+      text:
+        data?.choices?.[0]?.message?.content
+        ||
         "No AI response",
     });
 
