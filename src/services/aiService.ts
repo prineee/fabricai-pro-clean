@@ -7,7 +7,7 @@ export async function generateAI(
 
     const response =
       await fetch(
-        "https://www.fabricaipro.com/api/generate",
+        "/api/generate",
         {
           method: "POST",
 
