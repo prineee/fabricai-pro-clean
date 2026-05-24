@@ -1,79 +1,32 @@
-module.exports = async (req, res) => {
-
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "*"
-  );
-
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "POST, OPTIONS"
-  );
-
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Content-Type"
-  );
-
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
+export default async function handler(req, res) {
 
   if (req.method !== "POST") {
-
     return res.status(405).json({
-      output: "Method not allowed",
+      error: "Method not allowed",
     });
   }
 
   try {
 
-    const { prompt, type } = req.body;
+    const { prompt } = req.body;
 
-    let systemPrompt = "";
-
-    if (type === "blog") {
-
-      systemPrompt =
-        "Write a professional SEO optimized blog article.";
-    }
-
-    else if (type === "email") {
-
-      systemPrompt =
-        "Write a professional marketing email.";
-    }
-
-    else {
-
-      systemPrompt =
-        "Write a high converting advertisement.";
+    if (!prompt) {
+      return res.status(400).json({
+        error: "Prompt missing",
+      });
     }
 
     const response = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
       {
         method: "POST",
-
         headers: {
-
           "Content-Type": "application/json",
-
-          Authorization:
-            `Bearer ${process.env.GROQ_API_KEY}`,
+          Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
         },
-
         body: JSON.stringify({
-
-          model: "llama3-70b-8192",
-
+          model: "llama3-8b-8192",
           messages: [
-
-            {
-              role: "system",
-              content: systemPrompt,
-            },
-
             {
               role: "user",
               content: prompt,
@@ -83,14 +36,11 @@ module.exports = async (req, res) => {
       }
     );
 
-    const data =
-      await response.json();
+    const data = await response.json();
 
     return res.status(200).json({
-
-      output:
-        data?.choices?.[0]?.message?.content
-        ||
+      result:
+        data?.choices?.[0]?.message?.content ||
         "No AI response",
     });
 
@@ -99,8 +49,7 @@ module.exports = async (req, res) => {
     console.log(error);
 
     return res.status(500).json({
-
-      output: "AI generation failed",
+      error: "AI generation failed",
     });
   }
-};
+}

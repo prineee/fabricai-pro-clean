@@ -1,34 +1,20 @@
-export async function generateAI(
-  prompt: string,
-  type: string
-) {
+export async function generateAI(prompt: string) {
 
   try {
 
-    const response =
-      await fetch(
-        "/api/generate",
-        {
-          method: "POST",
+    const response = await fetch("/api/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        prompt,
+      }),
+    });
 
-          headers: {
+    const data = await response.json();
 
-            "Content-Type":
-              "application/json",
-          },
-
-          body: JSON.stringify({
-
-            prompt,
-            type,
-          }),
-        }
-      );
-
-    const data =
-      await response.json();
-
-    return data.output;
+    return data.result || "No AI response";
 
   } catch (error) {
 
