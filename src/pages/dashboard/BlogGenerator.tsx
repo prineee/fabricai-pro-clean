@@ -1,44 +1,26 @@
 import { useState } from "react";
-
 import DashboardLayout from "../../layouts/DashboardLayout";
-
 import { generateAI } from "../../services/aiService";
 
 export default function BlogGenerator() {
 
-  const [prompt, setPrompt] =
-    useState("");
-
-  const [result, setResult] =
-    useState("");
-
-  const [loading, setLoading] =
-    useState(false);
+  const [topic, setTopic] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState("");
 
   async function handleGenerate() {
 
-    if (!prompt) return;
+    if (!topic) return;
 
-    try {
+    setLoading(true);
 
-      setLoading(true);
+    const aiResult = await generateAI(
+      `Write a professional SEO optimized blog about ${topic}`
+    );
 
-      const output =
-        await generateAI(
-          prompt,
-          "blog writer"
-        );
+    setResult(aiResult);
 
-      setResult(output);
-
-    } catch (error) {
-
-      console.log(error);
-
-    } finally {
-
-      setLoading(false);
-    }
+    setLoading(false);
   }
 
   return (
@@ -51,13 +33,9 @@ export default function BlogGenerator() {
       <div style={cardStyle}>
 
         <textarea
+          value={topic}
+          onChange={(e) => setTopic(e.target.value)}
           placeholder="Enter blog topic..."
-          value={prompt}
-          onChange={(e) =>
-            setPrompt(
-              e.target.value
-            )
-          }
           style={inputStyle}
         />
 
@@ -65,17 +43,15 @@ export default function BlogGenerator() {
           onClick={handleGenerate}
           style={buttonStyle}
         >
-          {
-            loading
-              ? "Generating..."
-              : "Generate Blog"
-          }
+          {loading ? "Generating..." : "Generate Blog"}
         </button>
 
       </div>
 
-      <div style={resultStyle}>
-        {result}
+      <div style={resultCard}>
+        <pre style={resultStyle}>
+          {result || "No AI response"}
+        </pre>
       </div>
 
     </DashboardLayout>
@@ -83,49 +59,50 @@ export default function BlogGenerator() {
 }
 
 const titleStyle = {
-  fontSize: "48px",
+  fontSize: "52px",
   marginBottom: "30px",
 };
 
 const cardStyle = {
   background: "#0f172a",
-  padding: "35px",
+  padding: "30px",
+  borderRadius: "20px",
+  border: "1px solid #1e293b",
+};
+
+const inputStyle = {
+  width: "100%",
+  height: "220px",
+  padding: "20px",
+  background: "#ffffff",
+  color: "#000000",
+  border: "1px solid #334155",
+  borderRadius: "12px",
+  fontSize: "16px",
+  marginBottom: "20px",
+  outline: "none",
+};
+
+const buttonStyle = {
+  padding: "16px 28px",
+  background: "#2563eb",
+  color: "#ffffff",
+  border: "none",
+  borderRadius: "12px",
+  fontSize: "16px",
+  cursor: "pointer",
+};
+
+const resultCard = {
+  marginTop: "30px",
+  background: "#0f172a",
+  padding: "30px",
   borderRadius: "20px",
   border: "1px solid #1e293b",
 };
 
 const resultStyle = {
-  marginTop: "30px",
-  background: "#0f172a",
-  padding: "35px",
-  borderRadius: "20px",
-  border: "1px solid #1e293b",
   whiteSpace: "pre-wrap" as const,
+  color: "#ffffff",
   lineHeight: "1.8",
-};
-
-const inputStyle = {
-  width: "100%",
-  minHeight: "220px",
-  padding: "18px",
-  marginBottom: "20px",
-  borderRadius: "12px",
-  border: "1px solid #334155",
-  backgroundColor: "#ffffff",
-  color: "#000000",
-  WebkitTextFillColor:
-    "#000000",
-  caretColor: "#000000",
-  fontSize: "16px",
-  outline: "none",
-};
-
-const buttonStyle = {
-  padding: "16px 30px",
-  background: "#2563eb",
-  color: "white",
-  border: "none",
-  borderRadius: "12px",
-  cursor: "pointer",
-  fontSize: "18px",
 };

@@ -1,172 +1,117 @@
 import { useState } from "react";
-
 import DashboardLayout from "../../layouts/DashboardLayout";
-
 import { generateAI } from "../../services/aiService";
 
 export default function AdGenerator() {
 
-  const [product, setProduct] =
-    useState("");
+  const [product, setProduct] = useState("");
+  const [audience, setAudience] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState("");
 
-  const [audience, setAudience] =
-    useState("");
+  async function handleGenerate() {
 
-  const [result, setResult] =
-    useState("");
+    setLoading(true);
 
-  const [loading, setLoading] =
-    useState(false);
+    const aiResult = await generateAI(
+      `Create high converting advertisement copy.
+       Product: ${product}
+       Audience: ${audience}`
+    );
 
-  async function generateAd() {
+    setResult(aiResult);
 
-    if (!product || !audience)
-      return;
-
-    try {
-
-      setLoading(true);
-
-      const prompt = `
-Create a high converting advertisement.
-
-Product:
-${product}
-
-Audience:
-${audience}
-
-Include:
-- headline
-- benefits
-- CTA
-`;
-
-      const output =
-        await generateAI(
-          prompt,
-          "advertisement"
-        );
-
-      setResult(output);
-
-    } catch (error) {
-
-      console.log(error);
-
-    } finally {
-
-      setLoading(false);
-    }
+    setLoading(false);
   }
 
   return (
     <DashboardLayout>
 
-      <h1
-        style={titleStyle}
-      >
+      <h1 style={titleStyle}>
         AI Ad Generator
       </h1>
 
-      <div
-        style={cardStyle}
-      >
+      <div style={cardStyle}>
 
         <input
-          placeholder="Product Name"
+          type="text"
+          placeholder="Product"
           value={product}
-          onChange={(e) =>
-            setProduct(
-              e.target.value
-            )
-          }
+          onChange={(e) => setProduct(e.target.value)}
           style={inputStyle}
         />
 
         <input
+          type="text"
           placeholder="Target Audience"
           value={audience}
-          onChange={(e) =>
-            setAudience(
-              e.target.value
-            )
-          }
+          onChange={(e) => setAudience(e.target.value)}
           style={inputStyle}
         />
 
         <button
-          onClick={generateAd}
+          onClick={handleGenerate}
           style={buttonStyle}
         >
-          {
-            loading
-              ? "Generating..."
-              : "Generate Ad Copy"
-          }
+          {loading ? "Generating..." : "Generate Ad Copy"}
         </button>
 
       </div>
 
-      {
-        result && (
-
-          <div
-            style={resultStyle}
-          >
-            {result}
-          </div>
-
-        )
-      }
+      <div style={resultCard}>
+        <pre style={resultStyle}>
+          {result || "No AI response"}
+        </pre>
+      </div>
 
     </DashboardLayout>
   );
 }
 
 const titleStyle = {
-  fontSize: "48px",
+  fontSize: "52px",
   marginBottom: "30px",
 };
 
 const cardStyle = {
   background: "#0f172a",
-  padding: "35px",
+  padding: "30px",
   borderRadius: "20px",
   border: "1px solid #1e293b",
-};
-
-const resultStyle = {
-  marginTop: "30px",
-  background: "#0f172a",
-  padding: "35px",
-  borderRadius: "20px",
-  border: "1px solid #1e293b",
-  whiteSpace: "pre-wrap" as const,
-  lineHeight: "1.9",
 };
 
 const inputStyle = {
   width: "100%",
   padding: "18px",
-  marginBottom: "20px",
-  borderRadius: "12px",
-  border: "1px solid #334155",
-  backgroundColor: "#ffffff",
+  background: "#ffffff",
   color: "#000000",
-  WebkitTextFillColor:
-    "#000000",
-  caretColor: "#000000",
+  border: "1px solid #334155",
+  borderRadius: "12px",
   fontSize: "16px",
+  marginBottom: "20px",
   outline: "none",
 };
 
 const buttonStyle = {
-  padding: "16px 30px",
+  padding: "16px 28px",
   background: "#2563eb",
-  color: "white",
+  color: "#ffffff",
   border: "none",
   borderRadius: "12px",
+  fontSize: "16px",
   cursor: "pointer",
-  fontSize: "18px",
+};
+
+const resultCard = {
+  marginTop: "30px",
+  background: "#0f172a",
+  padding: "30px",
+  borderRadius: "20px",
+  border: "1px solid #1e293b",
+};
+
+const resultStyle = {
+  whiteSpace: "pre-wrap" as const,
+  color: "#ffffff",
+  lineHeight: "1.8",
 };

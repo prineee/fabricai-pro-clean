@@ -1,125 +1,117 @@
 import { useState } from "react";
-
 import DashboardLayout from "../../layouts/DashboardLayout";
-
 import { generateAI } from "../../services/aiService";
 
 export default function EmailGenerator() {
 
-  const [prompt, setPrompt] = useState("");
-
+  const [subject, setSubject] = useState("");
+  const [tone, setTone] = useState("");
+  const [loading, setLoading] = useState(false);
   const [result, setResult] = useState("");
 
-  const [loading, setLoading] = useState(false);
+  async function handleGenerate() {
 
-  async function generateEmail() {
+    setLoading(true);
 
-    if (!prompt) return;
+    const aiResult = await generateAI(
+      `Write a professional email.
+       Subject: ${subject}
+       Tone: ${tone}`
+    );
 
-    try {
+    setResult(aiResult);
 
-      setLoading(true);
-
-      const output = await generateAI(
-        prompt,
-        "email"
-      );
-
-      setResult(output);
-
-    } catch (error) {
-
-      console.log(error);
-
-    } finally {
-
-      setLoading(false);
-
-    }
-
+    setLoading(false);
   }
 
   return (
     <DashboardLayout>
 
-      <h1
-        style={{
-          fontSize: "42px",
-          marginBottom: "30px",
-        }}
-      >
+      <h1 style={titleStyle}>
         AI Email Generator
       </h1>
 
-      <div
-        style={{
-          background: "#0f172a",
-          padding: "30px",
-          borderRadius: "20px",
-          border: "1px solid #1e293b",
-        }}
-      >
+      <div style={cardStyle}>
 
-        <textarea
-          placeholder="Write email prompt"
-          value={prompt}
-          onChange={(e) =>
-            setPrompt(e.target.value)
-          }
-          style={{
-            width: "100%",
-            minHeight: "180px",
-            padding: "20px",
-            borderRadius: "12px",
-            background: "#ffffff",
-            color: "#000000",
-            border: "1px solid #334155",
-            fontSize: "16px",
-            outline: "none",
-          }}
+        <input
+          type="text"
+          placeholder="Email subject"
+          value={subject}
+          onChange={(e) => setSubject(e.target.value)}
+          style={inputStyle}
+        />
+
+        <input
+          type="text"
+          placeholder="Tone"
+          value={tone}
+          onChange={(e) => setTone(e.target.value)}
+          style={inputStyle}
         />
 
         <button
-          onClick={generateEmail}
-          style={{
-            marginTop: "20px",
-            padding: "16px 30px",
-            borderRadius: "12px",
-            border: "none",
-            background: "#2563eb",
-            color: "white",
-            fontSize: "18px",
-            cursor: "pointer",
-          }}
+          onClick={handleGenerate}
+          style={buttonStyle}
         >
-          {
-            loading
-              ? "Generating..."
-              : "Generate Email"
-          }
+          {loading ? "Generating..." : "Generate Email"}
         </button>
 
       </div>
 
-      {
-        result && (
-          <div
-            style={{
-              marginTop: "30px",
-              background: "#0f172a",
-              padding: "35px",
-              borderRadius: "20px",
-              border: "1px solid #1e293b",
-              whiteSpace: "pre-wrap",
-              lineHeight: "1.9",
-            }}
-          >
-            {result}
-          </div>
-        )
-      }
+      <div style={resultCard}>
+        <pre style={resultStyle}>
+          {result || "No AI response"}
+        </pre>
+      </div>
 
     </DashboardLayout>
   );
-
 }
+
+const titleStyle = {
+  fontSize: "52px",
+  marginBottom: "30px",
+};
+
+const cardStyle = {
+  background: "#0f172a",
+  padding: "30px",
+  borderRadius: "20px",
+  border: "1px solid #1e293b",
+};
+
+const inputStyle = {
+  width: "100%",
+  padding: "18px",
+  background: "#ffffff",
+  color: "#000000",
+  border: "1px solid #334155",
+  borderRadius: "12px",
+  fontSize: "16px",
+  marginBottom: "20px",
+  outline: "none",
+};
+
+const buttonStyle = {
+  padding: "16px 28px",
+  background: "#2563eb",
+  color: "#ffffff",
+  border: "none",
+  borderRadius: "12px",
+  fontSize: "16px",
+  cursor: "pointer",
+};
+
+const resultCard = {
+  marginTop: "30px",
+  background: "#0f172a",
+  padding: "30px",
+  borderRadius: "20px",
+  border: "1px solid #1e293b",
+};
+
+const resultStyle = {
+  whiteSpace: "pre-wrap" as const,
+  color: "#ffffff",
+  lineHeight: "1.8",
+};
