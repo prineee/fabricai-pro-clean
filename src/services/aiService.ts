@@ -25,6 +25,11 @@ export async function generateAI(
         }
       );
 
+    if (!response.ok) {
+
+      return "AI generation failed";
+    }
+
     const data =
       await response.json();
 

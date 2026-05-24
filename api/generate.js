@@ -13,10 +13,15 @@ export default async function handler(
 
   try {
 
+    const body =
+      typeof req.body === "string"
+        ? JSON.parse(req.body)
+        : req.body;
+
     const {
       prompt,
       type,
-    } = req.body;
+    } = body;
 
     let systemPrompt = "";
 
