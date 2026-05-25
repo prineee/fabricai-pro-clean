@@ -1,27 +1,22 @@
-export async function generateAI(prompt: string) {
-
+export const generateAI = async (prompt: string) => {
   try {
-
     const response = await fetch("/api/generate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        prompt,
-      }),
+      body: JSON.stringify({ prompt }),
     });
 
     const data = await response.json();
 
-    console.log(data);
+    if (!response.ok) {
+      throw new Error(data.error || "AI request failed");
+    }
 
-    return data.result || "No AI response";
-
+    return data.result;
   } catch (error) {
-
-    console.log("CLIENT ERROR:", error);
-
+    console.error("AI ERROR:", error);
     return "AI generation failed";
   }
-}  
+};

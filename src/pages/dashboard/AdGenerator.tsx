@@ -18,9 +18,7 @@ export default function AdGenerator() {
 
     setLoading(true);
 
-    const result = await generateAI(
-      `Write high converting advertisement copy for ${product} targeting ${audience}`
-    );
+    const result = await generateAI(prompt);
 
     setOutput(result);
 

@@ -17,9 +17,7 @@ export default function BlogGenerator() {
 
     setLoading(true);
 
-    const result = await generateAI(
-      `Write a professional detailed blog about ${topic}`
-    );
+    const result = await generateAI(prompt);
 
     setOutput(result);
 

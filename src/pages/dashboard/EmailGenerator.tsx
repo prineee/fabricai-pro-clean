@@ -17,9 +17,7 @@ export default function EmailGenerator() {
 
     setLoading(true);
 
-    const result = await generateAI(
-      `Write a professional business email about ${topic}`
-    );
+    const result = await generateAI(prompt);
 
     setOutput(result);
 
