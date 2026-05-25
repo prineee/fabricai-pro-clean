@@ -1,3 +1,4 @@
+console.log("NEW BUILD WORKING");
 import React from "react";
 
 import ReactDOM from "react-dom/client";

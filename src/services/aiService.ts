@@ -1,4 +1,4 @@
-export const generateAI = async (prompt: string): Promise<string> => {
+export const generateAI = async (prompt: string) => {
   try {
     const response = await fetch("/api/generate", {
       method: "POST",
@@ -6,15 +6,24 @@ export const generateAI = async (prompt: string): Promise<string> => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        prompt,
+        prompt: prompt,
       }),
     });
 
-    const data = await response.json();
+    const text = await response.text();
 
-    return JSON.stringify(data);
+    console.log("RAW RESPONSE:", text);
+
+    try {
+      const data = JSON.parse(text);
+
+      return data.result || JSON.stringify(data);
+    } catch {
+      return text;
+    }
   } catch (error) {
-    console.error(error);
+    console.error("CLIENT ERROR:", error);
+
     return "AI generation failed";
   }
 };
