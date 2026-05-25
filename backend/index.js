@@ -9,6 +9,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/api/generate", (req, res) => {
+  res.json({
+    success: true,
+    message: "Backend API is working",
+  });
+});
+
 app.post("/api/generate", async (req, res) => {
   try {
     const { prompt } = req.body;
