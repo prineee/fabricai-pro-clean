@@ -1,5 +1,4 @@
 export default async function handler(req, res) {
-
   if (req.method !== "POST") {
     return res.status(405).json({
       error: "Method not allowed",
@@ -7,16 +6,13 @@ export default async function handler(req, res) {
   }
 
   try {
-
     const { prompt } = req.body;
 
     if (!prompt) {
       return res.status(400).json({
-        error: "Prompt missing",
+        error: "Prompt is required",
       });
     }
-
-    console.log("Prompt:", prompt);
 
     const response = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
@@ -40,17 +36,13 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-    console.log("Groq Response:", data);
-
     return res.status(200).json({
       result:
         data?.choices?.[0]?.message?.content ||
         "No AI response",
     });
-
   } catch (error) {
-
-    console.log("SERVER ERROR:", error);
+    console.error(error);
 
     return res.status(500).json({
       error: "AI generation failed",
