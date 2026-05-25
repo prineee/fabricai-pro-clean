@@ -12,13 +12,9 @@ export const generateAI = async (prompt: string): Promise<string> => {
 
     const data = await response.json();
 
-    if (!response.ok) {
-      return data.error || "AI request failed";
-    }
-
-    return data.result || "No AI response";
+    return JSON.stringify(data);
   } catch (error) {
-    console.error("CLIENT ERROR:", error);
+    console.error(error);
     return "AI generation failed";
   }
 };
