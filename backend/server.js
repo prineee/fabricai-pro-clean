@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
 app.get("/api/generate", (req, res) => {
   res.json({
     success: true,
-    message: "AI API is working with Gemini route enabled",
+    message: "AI API is working with Groq route enabled",
   });
 });
 
@@ -32,10 +32,10 @@ app.post("/api/generate", async (req, res) => {
       });
     }
 
-    if (!process.env.GEMINI_API_KEY) {
+    if (!process.env.GROQ_API_KEY) {
       return res.status(500).json({
         success: false,
-        error: "GEMINI_API_KEY is missing in Render Environment",
+        error: "GROQ_API_KEY is missing in Render Environment",
       });
     }
 
@@ -60,48 +60,53 @@ Return the answer in this format:
 7. Factory Action Steps
 `;
 
-    const geminiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+    const groqResponse = await fetch(
+      "https://api.groq.com/openai/v1/chat/completions",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
         },
         body: JSON.stringify({
-          contents: [
+          model: "llama-3.1-8b-instant",
+          messages: [
             {
-              parts: [
-                {
-                  text: finalPrompt,
-                },
-              ],
+              role: "system",
+              content:
+                "You are FabricAI Pro, a practical garment manufacturing ERP assistant.",
+            },
+            {
+              role: "user",
+              content: finalPrompt,
             },
           ],
+          temperature: 0.4,
         }),
       }
     );
 
-    const geminiData = await geminiResponse.json();
+    const groqData = await groqResponse.json();
 
-    if (!geminiResponse.ok) {
+    if (!groqResponse.ok) {
       return res.status(500).json({
         success: false,
         error:
-          geminiData?.error?.message ||
-          "Gemini API request failed",
+          groqData?.error?.message ||
+          "Groq API request failed",
       });
     }
 
     const result =
-      geminiData?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "No Gemini response received";
+      groqData?.choices?.[0]?.message?.content ||
+      "No Groq response received";
 
     return res.json({
       success: true,
       result,
     });
   } catch (error) {
-    console.error("Gemini backend error:", error);
+    console.error("Groq backend error:", error);
 
     return res.status(500).json({
       success: false,
