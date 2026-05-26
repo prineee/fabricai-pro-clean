@@ -14,15 +14,13 @@ import Workspace from "./pages/Workspace";
 import StyleMaster from "./pages/StyleMaster";
 import StylesList from "./pages/StylesList";
 import ConsumptionCalculator from "./pages/ConsumptionCalculator";
+
 import BlogGenerator from "./pages/dashboard/BlogGenerator";
 import EmailGenerator from "./pages/dashboard/EmailGenerator";
 import AdGenerator from "./pages/dashboard/AdGenerator";
 import Billing from "./pages/dashboard/Billing";
 import History from "./pages/dashboard/History";
 import Settings from "./pages/dashboard/Settings";
-
-import AdminDashboard from "./pages/admin/AdminDashboard";
-import AffiliateDashboard from "./pages/affiliate/AffiliateDashboard";
 
 export default function App() {
   return (
@@ -130,24 +128,6 @@ export default function App() {
           element={
             <ProtectedRoute>
               <Settings />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute>
-              <AdminDashboard />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/affiliate"
-          element={
-            <ProtectedRoute>
-              <AffiliateDashboard />
             </ProtectedRoute>
           }
         />
