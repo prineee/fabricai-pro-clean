@@ -1,51 +1,52 @@
 import { Link } from "react-router-dom";
-
 import DashboardLayout from "../../layouts/DashboardLayout";
 
 export default function Overview() {
   return (
     <DashboardLayout>
-      <section style={heroStyle}>
+      <section style={{ marginBottom: "30px" }}>
         <p style={eyebrowStyle}>Factory command center</p>
+
         <h1 style={titleStyle}>FabricAI Pro Dashboard</h1>
+
         <p style={subtitleStyle}>
-          Track style development, estimate fabric consumption, analyze uploaded
-          techpacks, and prepare production decisions from one place.
+          Track style development, estimate fabric consumption, analyze garment
+          images, and prepare production decisions from one place.
         </p>
       </section>
 
       <div style={statsGridStyle}>
-        <MetricCard title="Active Styles" value="24" note="Live samples and bulk orders" />
-        <MetricCard title="Marker Efficiency" value="87%" note="Current planning average" />
-        <MetricCard title="Fabric Stock" value="12T" note="Across usable rolls" />
-        <MetricCard title="Demo Credits" value="2" note="For new registered users" />
+        <Metric title="Active Styles" value="24" note="Live samples and orders" />
+        <Metric title="Marker Efficiency" value="87%" note="Planning average" />
+        <Metric title="Fabric Stock" value="12T" note="Usable fabric rolls" />
+        <Metric title="Demo Credits" value="2" note="For new users" />
       </div>
 
       <div style={actionGridStyle}>
-        <ActionCard
+        <Action
           title="AI Garment Analysis"
-          text="Upload garment images, sketches, PDFs, or techpack files and generate production notes."
+          text="Upload garment image or techpack and generate BOM, costing, cutting, and production notes."
           to="/dashboard/workspace"
           button="Open AI Workspace"
         />
 
-        <ActionCard
+        <Action
           title="Style Master"
-          text="Create style records with buyer, fabric, GSM, width, shrinkage, image, and marker details."
+          text="Create style records with buyer, fabric, GSM, width, shrinkage, and image details."
           to="/dashboard/styles"
           button="Create Style"
         />
 
-        <ActionCard
+        <Action
           title="Consumption Calculator"
-          text="Calculate fabric requirement using width, GSM, shrinkage, wastage, and size ratio inputs."
+          text="Calculate fabric requirement using width, GSM, shrinkage, wastage, and order quantity."
           to="/dashboard/consumption"
           button="Calculate Consumption"
         />
 
-        <ActionCard
+        <Action
           title="Choose Your Plan"
-          text="Upgrade demo users to paid FabricAI Pro plans through Razorpay checkout."
+          text="Upgrade demo users to paid FabricAI Pro plans."
           to="/dashboard/billing"
           button="View Plans"
         />
@@ -54,60 +55,39 @@ export default function Overview() {
   );
 }
 
-function MetricCard({
-  title,
-  value,
-  note,
-}: {
-  title: string;
-  value: string;
-  note: string;
-}) {
+function Metric({ title, value, note }: any) {
   return (
-    <div style={metricCardStyle}>
-      <p style={metricTitleStyle}>{title}</p>
-      <h2 style={metricValueStyle}>{value}</h2>
-      <p style={metricNoteStyle}>{note}</p>
+    <div style={cardStyle}>
+      <p style={{ color: "#94a3b8", margin: 0 }}>{title}</p>
+      <h2 style={{ fontSize: "40px", margin: "14px 0 8px" }}>{value}</h2>
+      <p style={{ color: "#94a3b8", margin: 0 }}>{note}</p>
     </div>
   );
 }
 
-function ActionCard({
-  title,
-  text,
-  to,
-  button,
-}: {
-  title: string;
-  text: string;
-  to: string;
-  button: string;
-}) {
+function Action({ title, text, to, button }: any) {
   return (
-    <div style={actionCardStyle}>
-      <h2 style={actionTitleStyle}>{title}</h2>
-      <p style={actionTextStyle}>{text}</p>
-      <Link to={to} style={buttonStyle}>
+    <div style={cardStyle}>
+      <h2 style={{ fontSize: "24px", marginBottom: "12px" }}>{title}</h2>
+      <p style={{ color: "#cbd5e1", lineHeight: 1.7, minHeight: "90px" }}>
+        {text}
+      </p>
+      <Link style={buttonStyle} to={to}>
         {button}
       </Link>
     </div>
   );
 }
 
-const heroStyle = {
-  marginBottom: "28px",
-};
-
 const eyebrowStyle = {
   color: "#34d399",
   fontSize: "15px",
   fontWeight: 700,
   textTransform: "uppercase" as const,
-  letterSpacing: "0",
 };
 
 const titleStyle = {
-  fontSize: "44px",
+  fontSize: "46px",
   margin: "10px 0 14px",
 };
 
@@ -125,50 +105,17 @@ const statsGridStyle = {
   marginBottom: "28px",
 };
 
-const metricCardStyle = {
-  background: "#0f172a",
-  borderRadius: "16px",
-  padding: "24px",
-  border: "1px solid #1e293b",
-};
-
-const metricTitleStyle = {
-  color: "#94a3b8",
-  margin: 0,
-};
-
-const metricValueStyle = {
-  fontSize: "38px",
-  margin: "14px 0 8px",
-};
-
-const metricNoteStyle = {
-  color: "#94a3b8",
-  margin: 0,
-};
-
 const actionGridStyle = {
   display: "grid",
   gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))",
   gap: "20px",
 };
 
-const actionCardStyle = {
+const cardStyle = {
   background: "#0f172a",
   borderRadius: "16px",
-  border: "1px solid #1e293b",
   padding: "26px",
-};
-
-const actionTitleStyle = {
-  fontSize: "24px",
-  marginBottom: "12px",
-};
-
-const actionTextStyle = {
-  color: "#cbd5e1",
-  lineHeight: 1.7,
-  minHeight: "88px",
+  border: "1px solid #1e293b",
 };
 
 const buttonStyle = {
