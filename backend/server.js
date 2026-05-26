@@ -10,11 +10,11 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 
-app.get("/", (req, res) => {
+app.get("/", (_req, res) => {
   res.send("FabricAI Pro Backend is Running");
 });
 
-app.get("/api/generate", (req, res) => {
+app.get("/api/generate", (_req, res) => {
   res.json({
     success: true,
     message: "AI API is working with Groq route enabled",
@@ -70,6 +70,7 @@ Return the answer in this format:
         },
         body: JSON.stringify({
           model: "llama-3.1-8b-instant",
+          max_tokens: 1500,
           messages: [
             {
               role: "system",
@@ -118,4 +119,7 @@ Return the answer in this format:
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  console.log(
+    `GROQ_API_KEY: ${process.env.GROQ_API_KEY ? "SET ✓" : "MISSING ✗ — AI generation will fail"}`
+  );
 });

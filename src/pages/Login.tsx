@@ -194,6 +194,23 @@ export default function Login() {
             Register
           </Link>
         </div>
+
+        <div
+          style={{
+            marginTop: "14px",
+            fontSize: "17px",
+          }}
+        >
+          <Link
+            to="/forgot-password"
+            style={{
+              color: "#94a3b8",
+              textDecoration: "none",
+            }}
+          >
+            Forgot Password?
+          </Link>
+        </div>
       </div>
     </div>
   );

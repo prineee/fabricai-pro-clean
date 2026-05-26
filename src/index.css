@@ -9,25 +9,29 @@ body {
   color: white;
   font-family: Arial, Helvetica, sans-serif;
 }
-.auth-input::placeholder {
-  color: #64748b;
-}
-input,
-textarea {
-  color: #000000 !important;
-  -webkit-text-fill-color: #000000 !important;
-  opacity: 1 !important;
+
+.ai-output,
+pre {
+  color: #e2e8f0;
 }
 
-input::placeholder,
-textarea::placeholder {
-  color: #64748b !important;
+/* ── Global placeholder colour ── */
+::placeholder {
+  color: #fef08a !important;
+  opacity: 0.6;
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill {
-  -webkit-text-fill-color: #000000 !important;
-  box-shadow: 0 0 0px 1000px #ffffff inset !important;
+::-webkit-input-placeholder {
+  color: #fef08a !important;
+  opacity: 0.6;
+}
+
+::-moz-placeholder {
+  color: #fef08a !important;
+  opacity: 0.6;
+}
+
+:-ms-input-placeholder {
+  color: #fef08a !important;
+  opacity: 0.6;
 }

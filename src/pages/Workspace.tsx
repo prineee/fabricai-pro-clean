@@ -1,8 +1,11 @@
 import { useState } from "react";
 import DashboardLayout from "../layouts/DashboardLayout";
 import { analyzeGarment } from "../services/openai";
+import { useAuth } from "../context/AuthContext";
+import { checkAndDeductCredit } from "../utils/creditSystem";
 
 export default function Workspace() {
+  const { user } = useAuth();
   const [file, setFile] = useState<File | null>(null);
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
@@ -22,8 +25,18 @@ export default function Workspace() {
       return;
     }
 
+    if (!user) return;
+
+    setLoading(true);
+
+    const creditResult = await checkAndDeductCredit(user.uid);
+    if (!creditResult.allowed) {
+      setResult(creditResult.reason);
+      setLoading(false);
+      return;
+    }
+
     try {
-      setLoading(true);
       setResult("");
 
       const imageUrl = URL.createObjectURL(file);

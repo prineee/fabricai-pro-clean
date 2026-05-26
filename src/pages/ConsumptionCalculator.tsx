@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function ConsumptionCalculator() {
+  const navigate = useNavigate();
   const [garmentType, setGarmentType] = useState("Shirt");
   const [fabricCategory, setFabricCategory] = useState("Woven");
   const [patternType, setPatternType] = useState("Solid");
@@ -279,10 +281,29 @@ export default function ConsumptionCalculator() {
   ]);
 
   const inputClass =
-    "w-full mt-2 p-3 rounded-xl bg-slate-800 border border-slate-700";
+    "w-full mt-2 p-3 rounded-xl bg-slate-800 border border-slate-700 text-white placeholder-yellow-200";
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white p-8">
+    <div className="min-h-screen bg-slate-950 p-8" style={{ color: "#fef08a" }}>
+      <button
+        onClick={() => navigate("/dashboard")}
+        style={{
+          background: "transparent",
+          border: "1px solid #334155",
+          color: "#fef9c3",
+          padding: "10px 20px",
+          borderRadius: "10px",
+          cursor: "pointer",
+          fontSize: "15px",
+          marginBottom: "28px",
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+        }}
+      >
+        ← Back to Dashboard
+      </button>
+
       <h1 className="text-5xl font-bold mb-10">
         FabricAI ERP V5
       </h1>
@@ -291,7 +312,7 @@ export default function ConsumptionCalculator() {
         <div className="col-span-2 bg-slate-900 rounded-3xl p-8 border border-slate-800">
           <div className="grid grid-cols-2 gap-6">
             <div>
-              <label>Garment Type</label>
+              <label style={{ color: "#fef08a", fontWeight: 600 }}>Garment Type</label>
               <select
                 value={garmentType}
                 onChange={(e) =>
@@ -310,7 +331,7 @@ export default function ConsumptionCalculator() {
             </div>
 
             <div>
-              <label>Fabric Category</label>
+              <label style={{ color: "#fef08a", fontWeight: 600 }}>Fabric Category</label>
               <select
                 value={fabricCategory}
                 onChange={(e) =>
@@ -324,7 +345,7 @@ export default function ConsumptionCalculator() {
             </div>
 
             <div>
-              <label>Pattern Type</label>
+              <label style={{ color: "#fef08a", fontWeight: 600 }}>Pattern Type</label>
               <select
                 value={patternType}
                 onChange={(e) =>
@@ -340,7 +361,7 @@ export default function ConsumptionCalculator() {
             </div>
 
             <div>
-              <label>Fabric Width</label>
+              <label style={{ color: "#fef08a", fontWeight: 600 }}>Fabric Width</label>
               <input
                 type="number"
                 value={fabricWidth}
@@ -352,7 +373,7 @@ export default function ConsumptionCalculator() {
             </div>
 
             <div>
-              <label>
+              <label style={{ color: "#fef08a", fontWeight: 600 }}>
                 Fabric Rate ₹/
                 {fabricCategory === "Knit"
                   ? "Kg"
@@ -370,7 +391,7 @@ export default function ConsumptionCalculator() {
 
             {fabricCategory === "Knit" && (
               <div>
-                <label>GSM</label>
+                <label style={{ color: "#fef08a", fontWeight: 600 }}>GSM</label>
                 <input
                   type="number"
                   value={gsm}
@@ -383,7 +404,7 @@ export default function ConsumptionCalculator() {
             )}
 
             <div>
-              <label>Chest</label>
+              <label style={{ color: "#fef08a", fontWeight: 600 }}>Chest</label>
               <input
                 type="number"
                 value={chest}
@@ -395,7 +416,7 @@ export default function ConsumptionCalculator() {
             </div>
 
             <div>
-              <label>Body Length</label>
+              <label style={{ color: "#fef08a", fontWeight: 600 }}>Body Length</label>
               <input
                 type="number"
                 value={bodyLength}
@@ -407,7 +428,7 @@ export default function ConsumptionCalculator() {
             </div>
 
             <div>
-              <label>Sleeve Length</label>
+              <label style={{ color: "#fef08a", fontWeight: 600 }}>Sleeve Length</label>
               <input
                 type="number"
                 value={sleeveLength}
@@ -419,7 +440,7 @@ export default function ConsumptionCalculator() {
             </div>
 
             <div>
-              <label>Outseam</label>
+              <label style={{ color: "#fef08a", fontWeight: 600 }}>Outseam</label>
               <input
                 type="number"
                 value={outseam}
@@ -431,7 +452,7 @@ export default function ConsumptionCalculator() {
             </div>
 
             <div>
-              <label>Hip</label>
+              <label style={{ color: "#fef08a", fontWeight: 600 }}>Hip</label>
               <input
                 type="number"
                 value={hip}
@@ -443,7 +464,7 @@ export default function ConsumptionCalculator() {
             </div>
 
             <div>
-              <label>Order Quantity</label>
+              <label style={{ color: "#fef08a", fontWeight: 600 }}>Order Quantity</label>
               <input
                 type="number"
                 value={orderQty}
@@ -455,7 +476,7 @@ export default function ConsumptionCalculator() {
             </div>
 
             <div>
-              <label>
+              <label style={{ color: "#fef08a", fontWeight: 600 }}>
                 Available Fabric Stock
               </label>
               <input
@@ -472,41 +493,41 @@ export default function ConsumptionCalculator() {
 
         <div className="space-y-6">
           <div className="bg-slate-900 rounded-3xl p-8 border border-slate-800">
-            <h2 className="text-2xl font-bold mb-6">
+            <h2 className="text-2xl font-bold mb-6" style={{ color: "#fef08a" }}>
               Results
             </h2>
 
             <div className="space-y-4 text-sm">
               <div className="flex justify-between">
-                <span>Per Piece</span>
+                <span style={{ color: "#fef08a" }}>Per Piece</span>
                 <span className="text-emerald-400 font-bold">
                   {calculations.perPiece} {calculations.unit}
                 </span>
               </div>
 
               <div className="flex justify-between">
-                <span>Single Piece Cost</span>
+                <span style={{ color: "#fef08a" }}>Single Piece Cost</span>
                 <span className="text-emerald-400 font-bold">
                   ₹ {calculations.singlePieceCost}
                 </span>
               </div>
 
               <div className="flex justify-between">
-                <span>Total Fabric</span>
-                <span>
+                <span style={{ color: "#fef08a" }}>Total Fabric</span>
+                <span style={{ color: "#fef08a" }}>
                   {calculations.totalFabric} {calculations.unit}
                 </span>
               </div>
 
               <div className="flex justify-between">
-                <span>Total Order Cost</span>
+                <span style={{ color: "#fef08a" }}>Total Order Cost</span>
                 <span className="text-emerald-400 font-bold">
                   ₹ {calculations.totalOrderCost}
                 </span>
               </div>
 
               <div className="flex justify-between">
-                <span>Fabric Balance</span>
+                <span style={{ color: "#fef08a" }}>Fabric Balance</span>
                 <span
                   className={`font-bold ${
                     calculations.shortage
@@ -523,7 +544,7 @@ export default function ConsumptionCalculator() {
           </div>
 
           <div className="bg-slate-900 rounded-3xl p-8 border border-slate-800">
-            <h2 className="text-2xl font-bold mb-4">
+            <h2 className="text-2xl font-bold mb-4" style={{ color: "#fef08a" }}>
               Industry Benchmark
             </h2>
 
@@ -533,7 +554,7 @@ export default function ConsumptionCalculator() {
           </div>
 
           <div className="bg-slate-900 rounded-3xl p-8 border border-slate-800">
-            <h2 className="text-2xl font-bold mb-4">
+            <h2 className="text-2xl font-bold mb-4" style={{ color: "#fef08a" }}>
               AI Suggestions
             </h2>
 
