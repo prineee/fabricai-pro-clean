@@ -2,317 +2,83 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
-    <div
-      style={{
-        background: "#020617",
-        minHeight: "100vh",
-        color: "white",
-        fontFamily: "Arial",
-      }}
-    >
-      {/* NAVBAR */}
-      <nav
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "25px 60px",
-          borderBottom: "1px solid #1e293b",
-          position: "sticky",
-          top: 0,
-          background: "#020617",
-          zIndex: 1000,
-        }}
-      >
-        <h1
-          style={{
-            fontSize: "32px",
-            fontWeight: "bold",
-            color: "#3b82f6",
-          }}
-        >
-          FabricAI Pro
-        </h1>
+    <div style={pageStyle}>
+      <nav style={navStyle}>
+        <h1 style={brandStyle}>FabricAI Pro</h1>
 
-        <div
-          style={{
-            display: "flex",
-            gap: "20px",
-            alignItems: "center",
-          }}
-        >
-          <Link
-            to="/pricing"
-            style={navLink}
-          >
-            Pricing
-          </Link>
-
-          <Link
-            to="/login"
-            style={navLink}
-          >
-            Login
-          </Link>
-
-          <Link
-            to="/register"
-            style={{
-              background: "#2563eb",
-              padding: "12px 22px",
-              borderRadius: "10px",
-              color: "white",
-              textDecoration: "none",
-              fontWeight: "bold",
-            }}
-          >
-            Start Free
-          </Link>
+        <div style={navLinksStyle}>
+          <Link to="/pricing" style={navLinkStyle}>Pricing</Link>
+          <Link to="/login" style={navLinkStyle}>Login</Link>
+          <Link to="/register" style={primaryNavStyle}>Start Demo</Link>
         </div>
       </nav>
 
-      {/* HERO */}
-      <section
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          textAlign: "center",
-          padding: "120px 20px",
-        }}
-      >
-        <h1
-          style={{
-            fontSize: "72px",
-            maxWidth: "1100px",
-            lineHeight: 1.1,
-            marginBottom: "30px",
-            fontWeight: "bold",
-          }}
-        >
-          The Ultimate AI Platform For
-          <span
-            style={{
-              color: "#3b82f6",
-            }}
-          >
-            {" "}
-            Fashion Creators,
-          </span>
-          Businesses & Marketers
-        </h1>
+      <main>
+        <section style={heroStyle}>
+          <p style={eyebrowStyle}>AI fabric consumption ERP</p>
 
-        <p
-          style={{
-            maxWidth: "900px",
-            fontSize: "24px",
-            color: "#94a3b8",
-            lineHeight: 1.7,
-            marginBottom: "50px",
-          }}
-        >
-          Generate AI blogs, AI fashion content,
-          ads, emails, landing pages,
-          product descriptions and marketing assets
-          in seconds using FabricAI Pro.
-        </p>
+          <h2 style={heroTitleStyle}>
+            Calculate fabric consumption, marker loss, costing, and production
+            requirements with practical garment intelligence.
+          </h2>
 
-        <div
-          style={{
-            display: "flex",
-            gap: "20px",
-            flexWrap: "wrap",
-            justifyContent: "center",
-          }}
-        >
-          <Link
-            to="/register"
-            style={{
-              padding: "18px 34px",
-              background: "#2563eb",
-              color: "white",
-              borderRadius: "12px",
-              textDecoration: "none",
-              fontSize: "20px",
-              fontWeight: "bold",
-            }}
-          >
-            Start Free Trial
+          <p style={heroTextStyle}>
+            Built for garment factories that need faster style costing, better
+            fabric planning, and clear production decisions before bulk cutting.
+          </p>
+
+          <div style={ctaRowStyle}>
+            <Link to="/register" style={primaryButtonStyle}>
+              Create Demo Account
+            </Link>
+
+            <Link to="/login" style={secondaryButtonStyle}>
+              Login
+            </Link>
+          </div>
+        </section>
+
+        <section style={sectionStyle}>
+          <h2 style={sectionTitleStyle}>Factory Modules</h2>
+
+          <div style={gridStyle}>
+            <FeatureCard
+              title="Style Master"
+              text="Store style number, buyer, fabric type, GSM, width, shrinkage, techpack, image, and marker details."
+            />
+
+            <FeatureCard
+              title="Consumption Engine"
+              text="Estimate fabric need using width, GSM, wastage, shrinkage, ratio, lay, and marker efficiency."
+            />
+
+            <FeatureCard
+              title="AI Garment Analysis"
+              text="Upload garment files and generate practical BOM, costing, cutting, and production notes."
+            />
+
+            <FeatureCard
+              title="Billing"
+              text="Allow demo users to test credits first, then upgrade using Razorpay payment plans."
+            />
+          </div>
+        </section>
+
+        <section style={ctaSectionStyle}>
+          <h2 style={sectionTitleStyle}>
+            Use it first inside your own factory.
+          </h2>
+
+          <p style={heroTextStyle}>
+            Test with real styles for 2-3 months, compare predicted vs actual
+            consumption, then improve the formulas before selling as SaaS.
+          </p>
+
+          <Link to="/register" style={primaryButtonStyle}>
+            Start With 2 Demo Credits
           </Link>
-
-          <Link
-            to="/pricing"
-            style={{
-              padding: "18px 34px",
-              border: "1px solid #334155",
-              color: "white",
-              borderRadius: "12px",
-              textDecoration: "none",
-              fontSize: "20px",
-              fontWeight: "bold",
-            }}
-          >
-            View Pricing
-          </Link>
-        </div>
-      </section>
-
-      {/* FEATURES */}
-      <section
-        style={{
-          padding: "60px",
-        }}
-      >
-        <h2
-          style={{
-            textAlign: "center",
-            fontSize: "52px",
-            marginBottom: "60px",
-          }}
-        >
-          Powerful AI Features
-        </h2>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns:
-              "repeat(auto-fit,minmax(300px,1fr))",
-            gap: "30px",
-          }}
-        >
-          <FeatureCard
-            title="AI Blog Generator"
-            text="Generate SEO optimized blogs instantly."
-          />
-
-          <FeatureCard
-            title="AI Fashion Designer"
-            text="Create AI powered fashion designs and product ideas."
-          />
-
-          <FeatureCard
-            title="AI Email Generator"
-            text="Generate professional marketing emails."
-          />
-
-          <FeatureCard
-            title="AI Ad Creator"
-            text="Generate Facebook & Instagram ads instantly."
-          />
-
-          <FeatureCard
-            title="AI Landing Pages"
-            text="Create converting landing page content."
-          />
-
-          <FeatureCard
-            title="AI Marketing Tools"
-            text="Full marketing suite powered by AI."
-          />
-        </div>
-      </section>
-
-      {/* PRICING PREVIEW */}
-      <section
-        style={{
-          padding: "100px 40px",
-        }}
-      >
-        <h2
-          style={{
-            textAlign: "center",
-            fontSize: "54px",
-            marginBottom: "70px",
-          }}
-        >
-          Pricing Plans
-        </h2>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns:
-              "repeat(auto-fit,minmax(320px,1fr))",
-            gap: "30px",
-          }}
-        >
-          <PricingCard
-            title="FREE"
-            price="₹0 / $0"
-            features={[
-              "5 AI generations daily",
-              "Basic AI tools",
-              "Limited dashboard",
-            ]}
-          />
-
-          <PricingCard
-            title="PRO"
-            price="₹150/mo • $9/mo"
-            features={[
-              "Unlimited AI blogs",
-              "AI fashion generator",
-              "Marketing tools",
-              "Priority support",
-            ]}
-          />
-
-          <PricingCard
-            title="AGENCY"
-            price="₹399/mo • $19/mo"
-            features={[
-              "Unlimited everything",
-              "Team access",
-              "Advanced AI suite",
-              "Commercial rights",
-            ]}
-          />
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section
-        style={{
-          padding: "120px 30px",
-          textAlign: "center",
-        }}
-      >
-        <h2
-          style={{
-            fontSize: "60px",
-            marginBottom: "30px",
-          }}
-        >
-          Ready To Scale With AI?
-        </h2>
-
-        <p
-          style={{
-            fontSize: "22px",
-            color: "#94a3b8",
-            marginBottom: "50px",
-          }}
-        >
-          Join FabricAI Pro today and automate your content business.
-        </p>
-
-        <Link
-          to="/register"
-          style={{
-            padding: "22px 40px",
-            background: "#2563eb",
-            color: "white",
-            borderRadius: "14px",
-            textDecoration: "none",
-            fontSize: "22px",
-            fontWeight: "bold",
-          }}
-        >
-          Create Free Account
-        </Link>
-      </section>
+        </section>
+      </main>
     </div>
   );
 }
@@ -325,115 +91,144 @@ function FeatureCard({
   text: string;
 }) {
   return (
-    <div
-      style={{
-        background: "#0f172a",
-        padding: "35px",
-        borderRadius: "20px",
-        border: "1px solid #1e293b",
-      }}
-    >
-      <h3
-        style={{
-          fontSize: "28px",
-          marginBottom: "15px",
-        }}
-      >
-        {title}
-      </h3>
-
-      <p
-        style={{
-          color: "#94a3b8",
-          lineHeight: 1.7,
-          fontSize: "18px",
-        }}
-      >
-        {text}
-      </p>
+    <div style={cardStyle}>
+      <h3 style={cardTitleStyle}>{title}</h3>
+      <p style={cardTextStyle}>{text}</p>
     </div>
   );
 }
 
-function PricingCard({
-  title,
-  price,
-  features,
-}: {
-  title: string;
-  price: string;
-  features: string[];
-}) {
-  return (
-    <div
-      style={{
-        background: "#0f172a",
-        padding: "40px",
-        borderRadius: "22px",
-        border: "1px solid #1e293b",
-      }}
-    >
-      <h3
-        style={{
-          fontSize: "34px",
-          marginBottom: "20px",
-        }}
-      >
-        {title}
-      </h3>
+const pageStyle = {
+  background: "#020617",
+  minHeight: "100vh",
+  color: "white",
+  fontFamily: "Arial, sans-serif",
+};
 
-      <h1
-        style={{
-          fontSize: "46px",
-          color: "#3b82f6",
-          marginBottom: "30px",
-        }}
-      >
-        {price}
-      </h1>
+const navStyle = {
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: "22px 56px",
+  borderBottom: "1px solid #1e293b",
+};
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "16px",
-        }}
-      >
-        {features.map((feature) => (
-          <div
-            key={feature}
-            style={{
-              color: "#cbd5e1",
-              fontSize: "18px",
-            }}
-          >
-            ✓ {feature}
-          </div>
-        ))}
-      </div>
+const brandStyle = {
+  fontSize: "30px",
+  color: "#34d399",
+  margin: 0,
+};
 
-      <Link
-        to="/register"
-        style={{
-          display: "block",
-          marginTop: "40px",
-          textAlign: "center",
-          background: "#2563eb",
-          padding: "16px",
-          borderRadius: "12px",
-          color: "white",
-          textDecoration: "none",
-          fontWeight: "bold",
-        }}
-      >
-        Get Started
-      </Link>
-    </div>
-  );
-}
+const navLinksStyle = {
+  display: "flex",
+  gap: "18px",
+  alignItems: "center",
+};
 
-const navLink = {
+const navLinkStyle = {
   color: "white",
   textDecoration: "none",
-  fontSize: "18px",
+  fontSize: "17px",
+};
+
+const primaryNavStyle = {
+  ...navLinkStyle,
+  background: "#2563eb",
+  padding: "11px 18px",
+  borderRadius: "10px",
+  fontWeight: 700,
+};
+
+const heroStyle = {
+  padding: "90px 40px 80px",
+  maxWidth: "1180px",
+  margin: "0 auto",
+};
+
+const eyebrowStyle = {
+  color: "#34d399",
+  fontWeight: 700,
+  textTransform: "uppercase" as const,
+  letterSpacing: "0",
+};
+
+const heroTitleStyle = {
+  fontSize: "58px",
+  lineHeight: 1.08,
+  maxWidth: "1050px",
+  margin: "18px 0 24px",
+};
+
+const heroTextStyle = {
+  color: "#cbd5e1",
+  fontSize: "21px",
+  lineHeight: 1.7,
+  maxWidth: "860px",
+};
+
+const ctaRowStyle = {
+  display: "flex",
+  gap: "16px",
+  flexWrap: "wrap" as const,
+  marginTop: "36px",
+};
+
+const primaryButtonStyle = {
+  background: "#2563eb",
+  color: "white",
+  textDecoration: "none",
+  padding: "16px 24px",
+  borderRadius: "12px",
+  fontWeight: 700,
+  display: "inline-block",
+};
+
+const secondaryButtonStyle = {
+  color: "white",
+  textDecoration: "none",
+  padding: "16px 24px",
+  borderRadius: "12px",
+  border: "1px solid #334155",
+  fontWeight: 700,
+  display: "inline-block",
+};
+
+const sectionStyle = {
+  padding: "40px 40px 80px",
+  maxWidth: "1180px",
+  margin: "0 auto",
+};
+
+const sectionTitleStyle = {
+  fontSize: "38px",
+  marginBottom: "28px",
+};
+
+const gridStyle = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit,minmax(250px,1fr))",
+  gap: "20px",
+};
+
+const cardStyle = {
+  background: "#0f172a",
+  padding: "26px",
+  borderRadius: "16px",
+  border: "1px solid #1e293b",
+};
+
+const cardTitleStyle = {
+  fontSize: "24px",
+  marginBottom: "12px",
+};
+
+const cardTextStyle = {
+  color: "#cbd5e1",
+  lineHeight: 1.7,
+};
+
+const ctaSectionStyle = {
+  padding: "80px 40px 110px",
+  maxWidth: "1180px",
+  margin: "0 auto",
 };

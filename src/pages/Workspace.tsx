@@ -146,6 +146,29 @@ export default function Workspace() {
             </span>
           </label>
 
+          {files.length > 0 && (
+  <div className="mt-6 bg-emerald-50 border border-emerald-200 rounded-3xl p-6">
+    <p className="text-slate-900 text-xl font-black">
+      {files.length} file selected
+    </p>
+
+    <p className="text-slate-600 mt-2">
+      First file: {files[0].name}
+    </p>
+
+    <button
+      onClick={() => processAI(files[0])}
+      disabled={aiLoading}
+      className="mt-5 w-full bg-emerald-700 hover:bg-emerald-800 disabled:bg-slate-400 text-white px-8 py-5 rounded-2xl font-black flex items-center justify-center gap-3 text-xl"
+    >
+      <Sparkles size={24} />
+      {aiLoading ? "Processing AI..." : "Process AI"}
+    </button>
+  </div>
+)}
+
+{/* FILES */}
+
           {/* FILES */}
 
           <div className="mt-10 space-y-6">

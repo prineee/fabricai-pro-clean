@@ -1,22 +1,37 @@
 export async function generateAI(prompt: string) {
   try {
-    const response = await fetch(
-      "https://fabricai-pro-backend.onrender.com/api/generate",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ prompt }),
-      }
-    );
+    const baseUrl =
+      import.meta.env.VITE_API_URL ||
+      "https://fabricai-pro-backend.onrender.com";
 
-    const data = await response.json();
+    const response = await fetch(`${baseUrl}/api/generate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ prompt }),
+    });
 
-    return data.result;
-  } catch (error) {
-    console.log("CLIENT ERROR:", error);
+    const text = await response.text();
 
-    return "AI generation failed";
+    let data: any = {};
+
+    try {
+      data = JSON.parse(text);
+    } catch {
+      throw new Error(text || "Server returned invalid response");
+    }
+
+    if (!response.ok) {
+      throw new Error(data.error || data.details || "AI request failed");
+    }
+
+    return data.result || "No AI response received";
+  } catch (error: any) {
+    console.error("AI CLIENT ERROR:", error);
+
+    return `AI generation failed: ${
+      error?.message || "Please check backend API and AI key"
+    }`;
   }
 }

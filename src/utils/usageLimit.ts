@@ -1,17 +1,8 @@
 export const usageLimits = {
-  FREE: 5,
-  PRO: 999999,
-  AGENCY: 999999,
+  FREE: 2,
+  free: 2,
+  PRO: Number.POSITIVE_INFINITY,
+  pro: Number.POSITIVE_INFINITY,
+  AGENCY: Number.POSITIVE_INFINITY,
+  agency: Number.POSITIVE_INFINITY,
 };
-
-export function canGenerate(
-  plan: string,
-  todayUsage: number
-) {
-  const limit =
-    usageLimits[
-      plan as keyof typeof usageLimits
-    ];
-
-  return todayUsage < limit;
-}
