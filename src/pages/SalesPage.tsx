@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { motion, useInView, AnimatePresence, type Variants } from "framer-motion";
 import {
   Zap, BarChart3, Scissors, FileText, Mail, Factory,
@@ -955,16 +956,29 @@ export default function SalesPage() {
               <div>
                 <p className="text-white font-bold mb-3">Legal</p>
                 <ul className="space-y-2 text-slate-500">
-                  {["Terms of Service", "Privacy Policy", "Refund Policy", "Affiliate Disclosure"].map(l => (
-                    <li key={l}><a href="#" className="hover:text-white transition-colors">{l}</a></li>
+                  {[
+                    { label: "Terms of Service",    href: "/terms"               },
+                    { label: "Privacy Policy",       href: "/privacy"             },
+                    { label: "Refund Policy",        href: "/refund-policy"       },
+                    { label: "Earnings Disclaimer",  href: "/earnings-disclaimer" },
+                    { label: "Affiliate Terms",      href: "/affiliate-terms"     },
+                    { label: "Support",              href: "/support"             },
+                  ].map(({ label, href }) => (
+                    <li key={href}><Link to={href} className="hover:text-white transition-colors">{label}</Link></li>
                   ))}
                 </ul>
               </div>
               <div>
                 <p className="text-white font-bold mb-3">Affiliates</p>
                 <ul className="space-y-2 text-slate-500">
-                  {["JVZoo", "WarriorPlus", "CJ Affiliate", "Affiliate Assets"].map(l => (
-                    <li key={l}><a href="#" className="hover:text-white transition-colors">{l}</a></li>
+                  {[
+                    { label: "JVZoo",            href: affLink()              },
+                    { label: "WarriorPlus",       href: affLink()              },
+                    { label: "CJ Affiliate",      href: affLink()              },
+                    { label: "Affiliate Assets",  href: "/affiliate-assets"   },
+                    { label: "Affiliate Terms",   href: "/affiliate-terms"    },
+                  ].map(({ label, href }) => (
+                    <li key={label}><a href={href} className="hover:text-white transition-colors">{label}</a></li>
                   ))}
                 </ul>
               </div>

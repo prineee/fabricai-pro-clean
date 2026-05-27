@@ -20,6 +20,12 @@ import AffiliateAssets from "./pages/AffiliateAssets";
 import PricingUSD from "./pages/PricingUSD";
 import BillingUSD from "./pages/BillingUSD";
 import SalesPage from "./pages/SalesPage";
+import Terms from "./pages/Terms";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import RefundPolicy from "./pages/RefundPolicy";
+import EarningsDisclaimer from "./pages/EarningsDisclaimer";
+import AffiliateTerms from "./pages/AffiliateTerms";
+import Support from "./pages/Support";
 import BlogGenerator from "./pages/dashboard/BlogGenerator";
 import EmailGenerator from "./pages/dashboard/EmailGenerator";
 import AdGenerator from "./pages/dashboard/AdGenerator";
@@ -142,6 +148,12 @@ export default function App() {
         <Route path="/pricing-usd" element={<PricingUSD />} />
         <Route path="/billing-usd" element={<BillingUSD />} />
         <Route path="/sales" element={<SalesPage />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/refund-policy" element={<RefundPolicy />} />
+        <Route path="/earnings-disclaimer" element={<EarningsDisclaimer />} />
+        <Route path="/affiliate-terms" element={<AffiliateTerms />} />
+        <Route path="/support" element={<Support />} />
 
         <Route path="*" element={<Home />} />
       </Routes>
