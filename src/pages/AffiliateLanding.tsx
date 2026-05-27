@@ -77,13 +77,18 @@ export default function AffiliateLanding() {
             Affiliate Program
           </div>
         </div>
-        <div style={{ display: "flex", gap: "12px" }}>
-          <button style={navBtn("#ff6b35")}>🚀 JVZoo</button>
-          <button style={navBtn("#7c3aed")}>⚡ WarriorPlus</button>
-          <button style={navBtn("#2563eb")}>🌐 CJ Affiliate</button>
-          <Link to="/" style={{ ...navBtn("#334155") as any,
-                                textDecoration: "none" }}>
-            ← Main Site
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "8px" }}>
+          <div style={{ display: "flex", gap: "12px" }}>
+            <button style={navBtn("#ff6b35")}>🚀 JVZoo</button>
+            <button style={navBtn("#7c3aed")}>⚡ WarriorPlus</button>
+            <button style={navBtn("#2563eb")}>🌐 CJ Affiliate</button>
+            <Link to="/" style={{ ...navBtn("#334155") as any,
+                                  textDecoration: "none" }}>
+              ← Main Site
+            </Link>
+          </div>
+          <Link to="/pricing-usd" style={{ color: "#34d399", fontSize: "13px", fontWeight: 700, textDecoration: "none" }}>
+            🌍 View USD Pricing →
           </Link>
         </div>
       </nav>

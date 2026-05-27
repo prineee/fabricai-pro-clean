@@ -107,6 +107,20 @@ export default function Billing() {
         ← Back to Dashboard
       </button>
 
+      <a
+        href="/pricing-usd"
+        style={{
+          display: "inline-block",
+          color: "#34d399",
+          fontSize: "15px",
+          fontWeight: 700,
+          textDecoration: "none",
+          marginBottom: "28px",
+        }}
+      >
+        🌍 Paying in USD? View international pricing →
+      </a>
+
       <h1 style={{ fontSize: "44px", marginBottom: "35px", color: "#ffffff", fontWeight: 800 }}>
         Billing & Plans
       </h1>
