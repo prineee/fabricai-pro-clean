@@ -8,6 +8,7 @@ export default function Home() {
 
         <div style={navLinksStyle}>
           <Link to="/pricing" style={navLinkStyle}>Pricing</Link>
+          <Link to="/affiliates" style={navLinkStyle}>Affiliates</Link>
           <Link to="/login" style={navLinkStyle}>Login</Link>
           <Link to="/register" style={primaryNavStyle}>Start Demo</Link>
         </div>

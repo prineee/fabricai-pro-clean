@@ -42,8 +42,9 @@ export default function DashboardLayout({ children }: any) {
           <SidebarLink to="/dashboard/ads"       label="💰 Quotation"    currentPath={location.pathname} />
 
           <SectionLabel label="ACCOUNT" />
-          <SidebarLink to="/dashboard/history"  label="🕘 History"  currentPath={location.pathname} />
-          <SidebarLink to="/dashboard/billing"  label="💳 Billing"  currentPath={location.pathname} />
+          <SidebarLink to="/dashboard/history"  label="🕘 History"   currentPath={location.pathname} />
+          <SidebarLink to="/affiliates"          label="🤝 Affiliate Program" currentPath={location.pathname} />
+          <SidebarLink to="/dashboard/billing"  label="💳 Billing"   currentPath={location.pathname} />
           <SidebarLink to="/dashboard/settings" label="⚙️ Settings" currentPath={location.pathname} />
         </nav>
 
