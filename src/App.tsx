@@ -16,6 +16,7 @@ import StylesList from "./pages/StylesList";
 import ConsumptionCalculator from "./pages/ConsumptionCalculator";
 
 import AffiliateLanding from "./pages/AffiliateLanding";
+import AffiliateAssets from "./pages/AffiliateAssets";
 import BlogGenerator from "./pages/dashboard/BlogGenerator";
 import EmailGenerator from "./pages/dashboard/EmailGenerator";
 import AdGenerator from "./pages/dashboard/AdGenerator";
@@ -134,6 +135,7 @@ export default function App() {
         />
 
         <Route path="/affiliates" element={<AffiliateLanding />} />
+        <Route path="/affiliate-assets" element={<AffiliateAssets />} />
 
         <Route path="*" element={<Home />} />
       </Routes>

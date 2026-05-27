@@ -367,6 +367,20 @@ export default function AffiliateLanding() {
             </div>
           ))}
         </div>
+        <div style={{ textAlign: "center", marginTop: "40px" }}>
+          <Link to="/affiliate-assets" style={{
+            display: "inline-block", background: "#fef08a",
+            color: "#020617", textDecoration: "none",
+            padding: "20px 48px", borderRadius: "14px",
+            fontSize: "20px", fontWeight: 900,
+          }}>
+            📦 Access All Marketing Assets →
+          </Link>
+          <p style={{ color: "#94a3b8", marginTop: "14px", fontSize: "15px" }}>
+            Email swipes, banners, social posts, video scripts,
+            WhatsApp messages and AI video guide — all free
+          </p>
+        </div>
       </section>
 
       {/* ── TARGET AUDIENCE ── */}
