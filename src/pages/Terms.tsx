@@ -4,112 +4,114 @@ import LegalLayout, { PolicySection, PolicyList, PolicyNote } from "../component
 export default function Terms() {
   return (
     <LegalLayout
-      title="Terms & Conditions"
+      title="Terms and Conditions"
       badge="Legal · Binding Agreement"
       Icon={FileText}
       iconBg="bg-blue-600"
-      lastUpdated="May 2026"
-      description="By accessing or using FabricAI Pro, you agree to comply with and be bound by the following Terms and Conditions. Please read them carefully."
+      lastUpdated="May 28, 2026"
+      description="By accessing or using FabricAI Pro, you agree to be bound by these Terms and Conditions. If you do not agree, please do not use the Service."
     >
-      <PolicySection number={1} title="Services">
+      <PolicySection number={1} title="Acceptance of Terms">
         <p>
-          FabricAI Pro provides AI-powered ERP and production management tools for garment
-          factories and textile manufacturing businesses. Our platform includes fabric consumption
-          calculation, style management, buyer communication, BOM generation, and related services.
+          By accessing or using FabricAI Pro ("the Service"), you agree to be bound by these
+          Terms and Conditions. If you do not agree, please do not use the Service.
         </p>
       </PolicySection>
 
-      <PolicySection number={2} title="User Responsibilities">
+      <PolicySection number={2} title="Description of Service">
         <p>
-          Users agree to provide accurate information and use the platform lawfully. You are
-          responsible for maintaining account security and confidentiality of your login credentials.
+          FabricAI Pro is an AI-powered platform providing tools and services for creators,
+          marketers, and businesses to automate and enhance their digital content workflows
+          using artificial intelligence.
         </p>
-        <PolicyNote>
-          Any activity that occurs under your account is your responsibility. Notify us immediately
-          if you suspect unauthorized access at support@fabricaipro.com.
-        </PolicyNote>
       </PolicySection>
 
-      <PolicySection number={3} title="Subscriptions">
-        <p>
-          Certain features require paid subscriptions. Current pricing is displayed on the pricing
-          page. Subscription pricing may change with prior notice of at least 14 days before
-          your next billing cycle.
-        </p>
+      <PolicySection number={3} title="User Accounts">
         <PolicyList items={[
-          "Subscriptions auto-renew unless cancelled before the renewal date",
-          "Downgrading or cancelling takes effect at the end of the billing period",
-          "Free plan limitations apply as described on the pricing page",
+          "You must provide accurate and complete information when creating an account.",
+          "You are responsible for maintaining the confidentiality of your login credentials.",
+          "You must be at least 18 years of age to use the Service.",
+          "You are responsible for all activity that occurs under your account.",
+          "We reserve the right to terminate accounts that violate these terms without prior notice.",
         ]} />
       </PolicySection>
 
-      <PolicySection number={4} title="Acceptable Use">
-        <p>Users may not engage in any of the following:</p>
+      <PolicySection number={4} title="Subscription and Billing">
         <PolicyList items={[
-          "Use the platform for unlawful, fraudulent, or harmful purposes",
-          "Attempt to reverse engineer, decompile, or disassemble the software",
-          "Abuse AI generation systems through automated bulk requests",
-          "Share account access credentials without authorization",
-          "Upload harmful, malicious, or illegal content",
-          "Use the platform to violate intellectual property rights of third parties",
-          "Attempt to gain unauthorized access to other user accounts or our infrastructure",
+          "FabricAI Pro offers subscription-based plans billed monthly or annually.",
+          "All prices are listed in INR (Indian Rupees) and USD where applicable.",
+          "Subscriptions automatically renew unless cancelled before the renewal date.",
+          "We reserve the right to modify pricing with 30 days advance notice.",
         ]} />
       </PolicySection>
 
-      <PolicySection number={5} title="AI Generated Content">
-        <p>
-          AI-generated outputs — including fabric consumption calculations, BOMs, costing
-          estimates, and business communications — are provided for assistance purposes only.
-        </p>
-        <PolicyNote>
-          Users are responsible for reviewing and verifying all AI-generated content before use
-          in production environments, buyer communications, or business decisions. FabricAI Pro
-          does not guarantee the accuracy of AI outputs.
-        </PolicyNote>
-      </PolicySection>
-
-      <PolicySection number={6} title="Limitation of Liability">
-        <p>
-          FabricAI Pro shall not be liable for any indirect, incidental, consequential, or
-          punitive damages including but not limited to:
-        </p>
+      <PolicySection number={5} title="Acceptable Use">
+        <p>You agree NOT to use the Service to:</p>
         <PolicyList items={[
-          "Production losses or delays arising from AI-generated outputs",
-          "Business interruptions or revenue loss",
-          "Inaccuracies arising from incorrect user-entered data",
-          "Loss of data due to technical failures outside our control",
-          "Third-party service disruptions affecting our platform",
+          "Create content that is illegal, harmful, defamatory, or infringes on intellectual property rights.",
+          "Generate spam, misleading, or fraudulent content.",
+          "Violate the privacy or rights of any third party.",
+          "Attempt to reverse engineer, hack, or disrupt the Service or its infrastructure.",
+          "Resell or redistribute the Service without written permission.",
+          "Use automated bots or scripts to abuse the platform.",
         ]} />
       </PolicySection>
 
-      <PolicySection number={7} title="Account Termination">
+      <PolicySection number={6} title="Intellectual Property">
+        <PolicyList items={[
+          "All content generated using FabricAI Pro belongs to you, the user.",
+          "The FabricAI Pro platform, branding, logo, and underlying technology remain our exclusive property.",
+          "You grant FabricAI Pro a limited, non-exclusive license to process your inputs solely to deliver the Service.",
+        ]} />
+      </PolicySection>
+
+      <PolicySection number={7} title="Third-Party Integrations">
         <p>
-          We reserve the right to suspend or terminate accounts at our discretion if users
-          violate these terms, engage in fraudulent activity, or abuse the platform. Users
-          may also terminate their account at any time by contacting support.
+          FabricAI Pro integrates with third-party services to deliver its features. We are not
+          responsible for the performance, availability, or policies of any third-party service.
         </p>
       </PolicySection>
 
-      <PolicySection number={8} title="Intellectual Property">
+      <PolicySection number={8} title="Limitation of Liability">
         <p>
-          All software, branding, interfaces, AI systems, content, and documentation are the
-          exclusive property of FabricAI Pro. Users may not reproduce, distribute, or create
-          derivative works without explicit written permission.
+          FabricAI Pro shall not be liable for any indirect, incidental, special, or consequential
+          damages arising from your use of the Service. Our maximum liability shall not exceed the
+          amount you paid in the last 30 days.
         </p>
       </PolicySection>
 
-      <PolicySection number={9} title="Modifications to Terms">
+      <PolicySection number={9} title="Service Availability">
         <p>
-          We may update these Terms and Conditions at any time. We will notify registered
-          users of significant changes via email. Continued use of the platform after changes
-          take effect constitutes acceptance of the revised terms.
+          We aim for maximum uptime but do not guarantee uninterrupted access. Scheduled maintenance
+          will be communicated in advance when possible.
         </p>
       </PolicySection>
 
-      <PolicySection number={10} title="Contact">
-        <p>For questions regarding these Terms and Conditions, contact us at:</p>
+      <PolicySection number={10} title="Termination">
+        <p>
+          We reserve the right to suspend or terminate your account at any time if you violate these
+          Terms. You may terminate your account at any time by contacting support.
+        </p>
+      </PolicySection>
+
+      <PolicySection number={11} title="Modifications">
+        <p>
+          We reserve the right to modify these Terms at any time. Continued use of the Service after
+          changes constitutes your acceptance.
+        </p>
+      </PolicySection>
+
+      <PolicySection number={12} title="Governing Law">
+        <p>
+          These Terms are governed by the laws of India. Any disputes shall be subject to the
+          exclusive jurisdiction of the courts of India.
+        </p>
+      </PolicySection>
+
+      <PolicySection number={13} title="Contact">
+        <p>For questions regarding these Terms, contact us at:</p>
         <PolicyNote>
-          📧 support@fabricaipro.com · Monday–Saturday · 10 AM – 7 PM IST
+          📧 support@fabricaipro.com &nbsp;·&nbsp; Website: fabricaipro.com &nbsp;·&nbsp; Effective: May 28, 2026
         </PolicyNote>
       </PolicySection>
     </LegalLayout>

@@ -4,12 +4,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Zap, ArrowLeft, ArrowUp, ChevronRight } from "lucide-react";
 
 const LEGAL_NAV = [
-  { label: "Terms",               href: "/terms"               },
-  { label: "Privacy Policy",      href: "/privacy"             },
-  { label: "Refund Policy",       href: "/refund-policy"       },
-  { label: "Earnings Disclaimer", href: "/earnings-disclaimer" },
-  { label: "Affiliate Terms",     href: "/affiliate-terms"     },
-  { label: "Support",             href: "/support"             },
+  { label: "Terms",                href: "/terms"                },
+  { label: "Privacy Policy",       href: "/privacy"              },
+  { label: "Refund Policy",        href: "/refund-policy"        },
+  { label: "Cancellation Policy",  href: "/cancellation-policy"  },
+  { label: "Earnings Disclaimer",  href: "/earnings-disclaimer"  },
+  { label: "Affiliate Terms",      href: "/affiliate-terms"      },
+  { label: "Support",              href: "/support"              },
 ];
 
 // ─── READING PROGRESS BAR ─────────────────────────────────────────────────────
@@ -117,6 +118,15 @@ export function PolicyNote({ children }: { children: ReactNode }) {
   return (
     <div className="mt-3 px-4 py-3 rounded-xl bg-emerald-500/5 border border-emerald-500/15">
       <p className="text-slate-300 text-sm leading-relaxed">{children}</p>
+    </div>
+  );
+}
+
+/** Red warning box for destructive / irreversible actions */
+export function PolicyWarning({ children }: { children: ReactNode }) {
+  return (
+    <div className="mt-3 px-4 py-3 rounded-xl bg-red-500/5 border border-red-500/20">
+      <p className="text-red-300 text-sm leading-relaxed">{children}</p>
     </div>
   );
 }

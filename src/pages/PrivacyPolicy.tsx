@@ -8,115 +8,108 @@ export default function PrivacyPolicy() {
       badge="Data Protection · GDPR Aligned"
       Icon={Shield}
       iconBg="bg-emerald-600"
-      lastUpdated="May 2026"
-      description="FabricAI Pro is committed to protecting your personal data. This policy explains what we collect, how we use it, and your rights regarding your information."
+      lastUpdated="May 28, 2026"
+      description="FabricAI Pro is committed to protecting your privacy. This Privacy Policy explains how we collect, use, store, and protect your personal information when you use our platform."
     >
-      <PolicySection number={1} title="Information We Collect">
-        <p>When you use FabricAI Pro, we may collect the following categories of information:</p>
-        <PolicyList items={[
-          "Name and contact information (email address)",
-          "Company name, industry, and factory details",
-          "Payment and billing information (processed securely by Razorpay)",
-          "Usage analytics and feature interaction data",
-          "Garment data, style records, and production information you upload",
-          "IP address and device/browser information",
-          "Customer support communications",
-        ]} />
-      </PolicySection>
-
-      <PolicySection number={2} title="How We Use Your Information">
-        <p>We use collected information strictly for the following purposes:</p>
-        <PolicyList items={[
-          "Provide, operate, and maintain the FabricAI Pro platform",
-          "Process subscription payments and manage billing",
-          "Generate AI-powered outputs based on data you provide",
-          "Improve platform performance, features, and AI accuracy",
-          "Send service-related communications and support responses",
-          "Comply with legal obligations and resolve disputes",
-        ]} />
-        <PolicyNote>
-          We do not use your factory data, style records, or production information for
-          training AI models. Your business data stays private to your account.
-        </PolicyNote>
-      </PolicySection>
-
-      <PolicySection number={3} title="Data Security">
+      <PolicySection number={1} title="Introduction">
         <p>
-          We implement industry-standard security measures to protect your information,
-          including AES-256 encryption for data at rest and TLS 1.3 for data in transit.
-          Access to user data is restricted to authorised personnel only.
-        </p>
-        <PolicyNote>
-          While we take reasonable precautions, no system is completely secure. We encourage
-          users to use strong passwords and enable account security features.
-        </PolicyNote>
-      </PolicySection>
-
-      <PolicySection number={4} title="Third-Party Service Providers">
-        <p>
-          We may share limited data with trusted third-party providers solely to operate
-          the platform:
-        </p>
-        <PolicyList items={[
-          "Payment processing — Razorpay (PCI DSS compliant)",
-          "AI infrastructure — Google AI / Groq (computation only)",
-          "Email delivery — for transactional and support emails",
-          "Analytics — aggregated, anonymised usage statistics only",
-          "Cloud hosting — for secure, reliable service delivery",
-        ]} />
-      </PolicySection>
-
-      <PolicySection number={5} title="Cookies & Analytics">
-        <p>
-          FabricAI Pro uses cookies and similar technologies to improve your experience.
-          These may include session cookies, preference cookies, and analytics trackers.
-          You can control cookie behaviour through your browser settings.
+          FabricAI Pro is committed to protecting your privacy. This Privacy Policy explains how
+          we collect, use, store, and protect your personal information when you use our platform.
         </p>
       </PolicySection>
 
-      <PolicySection number={6} title="Data Sharing Policy">
+      <PolicySection number={2} title="Information We Collect">
+        <p><strong className="text-white">Information you provide:</strong></p>
+        <PolicyList items={[
+          "Full name and email address during registration",
+          "Payment details (processed securely — we never store card or UPI details directly)",
+          "Content inputs such as prompts, topics, and creative briefs you submit",
+        ]} />
+        <p className="mt-3"><strong className="text-white">Information collected automatically:</strong></p>
+        <PolicyList items={[
+          "IP address and browser/device information",
+          "Pages and features accessed on our platform",
+          "Session duration and usage patterns",
+          "Error logs and performance data",
+        ]} />
+      </PolicySection>
+
+      <PolicySection number={3} title="How We Use Your Information">
+        <PolicyList items={[
+          "Create and manage your account",
+          "Process payments and manage subscriptions",
+          "Deliver AI-generated outputs based on your inputs",
+          "Send transactional emails and important account notifications",
+          "Improve platform performance and user experience",
+          "Comply with applicable laws and regulations",
+        ]} />
+      </PolicySection>
+
+      <PolicySection number={4} title="Data Storage and Security">
         <p>
-          We do not sell, rent, or trade your personal information to third parties for
-          marketing or advertising purposes. Data is only shared with service providers
-          as described in Section 4, or when required by law.
+          Your personal data is stored on secure, encrypted servers. We use industry-standard
+          SSL/TLS encryption for all data in transit. Access to your data is restricted to
+          authorised personnel only.
+        </p>
+      </PolicySection>
+
+      <PolicySection number={5} title="Data Sharing">
+        <p>We do not sell your personal data to any third party. We share data only with:</p>
+        <PolicyList items={[
+          "Payment processors (Razorpay, Stripe) to handle transactions securely",
+          "AI service providers solely to process and return your requested outputs",
+          "Cloud infrastructure providers to store and serve your files",
+          "Legal or regulatory authorities when required by law",
+        ]} />
+      </PolicySection>
+
+      <PolicySection number={6} title="Cookies">
+        <p>
+          We use cookies to keep you logged in, remember your preferences, and analyse usage
+          patterns. You may disable cookies in your browser, though some features may not
+          function correctly without them.
         </p>
       </PolicySection>
 
       <PolicySection number={7} title="Your Rights">
-        <p>You have the following rights regarding your personal data:</p>
         <PolicyList items={[
-          "Access — request a copy of the data we hold about you",
-          "Correction — request correction of inaccurate information",
-          "Deletion — request deletion of your account and associated data",
-          "Portability — receive your data in a machine-readable format",
-          "Objection — object to specific uses of your data",
+          "Access your personal data held by us",
+          "Request correction of any inaccurate information",
+          "Request deletion of your account and associated data",
+          "Export your data in a machine-readable format",
+          "Withdraw consent for marketing communications at any time",
         ]} />
         <PolicyNote>
-          To exercise any of these rights, contact us at support@fabricaipro.com. We will
-          respond within 30 days.
+          To exercise any of these rights, email us at support@fabricaipro.com. We will respond
+          within 30 days.
         </PolicyNote>
       </PolicySection>
 
       <PolicySection number={8} title="Data Retention">
         <p>
-          We retain your account data for as long as your subscription is active. Upon account
-          deletion, personal data is purged within 30 days. Aggregated, anonymised analytics
-          data may be retained indefinitely.
+          We retain your data for as long as your account remains active. Upon account deletion,
+          your personal data is permanently removed within 7 business days.
         </p>
       </PolicySection>
 
-      <PolicySection number={9} title="Policy Updates">
+      <PolicySection number={9} title="Children's Privacy">
         <p>
-          This Privacy Policy may be updated periodically to reflect changes in our practices
-          or legal requirements. We will notify users of material changes via email at least
-          14 days before they take effect.
+          FabricAI Pro is not intended for users under 18 years of age. We do not knowingly
+          collect personal data from minors.
         </p>
       </PolicySection>
 
-      <PolicySection number={10} title="Contact">
-        <p>For privacy-related enquiries or data requests:</p>
+      <PolicySection number={10} title="Changes to This Policy">
+        <p>
+          We may update this Privacy Policy from time to time. We will notify you via email or
+          in-app notification of any material changes.
+        </p>
+      </PolicySection>
+
+      <PolicySection number={11} title="Contact">
+        <p>For privacy-related queries, contact us at:</p>
         <PolicyNote>
-          📧 support@fabricaipro.com · Monday–Saturday · 10 AM – 7 PM IST
+          📧 support@fabricaipro.com &nbsp;·&nbsp; Website: fabricaipro.com &nbsp;·&nbsp; Effective: May 28, 2026
         </PolicyNote>
       </PolicySection>
     </LegalLayout>

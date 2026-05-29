@@ -25,6 +25,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import RefundPolicy from "./pages/RefundPolicy";
 import EarningsDisclaimer from "./pages/EarningsDisclaimer";
 import AffiliateTerms from "./pages/AffiliateTerms";
+import CancellationPolicy from "./pages/CancellationPolicy";
 import Support from "./pages/Support";
 import BlogGenerator from "./pages/dashboard/BlogGenerator";
 import EmailGenerator from "./pages/dashboard/EmailGenerator";
@@ -151,6 +152,7 @@ export default function App() {
         <Route path="/terms" element={<Terms />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/refund-policy" element={<RefundPolicy />} />
+        <Route path="/cancellation-policy" element={<CancellationPolicy />} />
         <Route path="/earnings-disclaimer" element={<EarningsDisclaimer />} />
         <Route path="/affiliate-terms" element={<AffiliateTerms />} />
         <Route path="/support" element={<Support />} />
